@@ -2,29 +2,236 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-
-/* :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* 
+=======================
+Fonts
+=======================
+*/
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-work-sans), sans-serif;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* 
+=======================
+Containers
+=======================
+*/
+
+/* Define CSS variables for responsive breakpoints */
+:root {
+  --mobile-width: 760px;
+  --medium-width: 1000px;
+  --desktop-width: 1200px;
+}
+
+/* Define custom container class */
+.cont {
+  margin: 0 auto; /* Center the container */
+  padding: 0rem; /* Add padding to the sides */
+
+  /* Extra Small Screens (xs): 0px -> 575 */
+  @media (min-width: 0px) {
+    max-width: 100%; /* Adjust the max-width */
+    padding: 0 1rem;
   }
-} */
+
+  /* Small Screens (s): 575px -> 770px */
+  @media (min-width: 575px) {
+    max-width: 530px; /* Adjust the max-width */
+  }
+
+  /* Medium screens (m): 770px -> 990px */
+  @media (min-width: 770px) {
+    max-width: 690px; /* Adjust the max-width */
+  }
+
+  /* Large screens (l): 990px -> 1200px */
+  @media (min-width: 990px) {
+    max-width: 930px; /* Adjust the max-width */
+  }
+
+  /* Extra large screens (xl): 1200px+ */
+  @media (min-width: 1200px) {
+    max-width: 100%;
+    padding: 0 3.5rem;
+  }
+}
+
+/* 
+=======================
+Animations
+=======================
+*/
+/* Hovers, transitions,  */
+
+.default-transition {
+  transition: all 300ms ease-out;
+}
+
+.orange-hover:hover {
+  transition: all 300ms ease-out;
+  color: #f66608;
+}
+
+.orange-hover:hover {
+  transition: all 300ms ease-out;
+  color: #f66608;
+}
+
+.black-hover:hover {
+  transition: all 300ms ease-out;
+  background-color: #333333;
+}
+/* 
+=======================
+Slick Slider Styles
+=======================
+*/
+
+/* Slick slider container */
+.slick-slider {
+  position: relative !important;
+}
+
+/* Slick dots arranged vertically on the right */
+.slick-dots {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center;
+  position: absolute !important;
+  right: 1rem;
+  top: 0;
+  max-width: 30px;
+  height: 100%;
+}
+
+/* Hide buttons by default */
+.slick-slider .custom-slider {
+  opacity: 0;
+  pointer-events: none; /* Prevent interaction when hidden */
+  transition: opacity 0.3s ease;
+}
+
+/* Show buttons when hovering over the slider container */
+.slick-slider:hover .custom-slider {
+  opacity: 1;
+  pointer-events: auto; /* Enable interaction when visible */
+}
+
+/* 
+=======================
+Box Shadows
+=======================
+*/
+.dark-shadow {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.light-shadow {
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.076);
+}
+
+.lighter-shadow {
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.04);
+}
+
+/* 
+=======================
+Slider Items Heights
+=======================
+*/
+
+/* Reserved for setting height for slider items where Tailwind can't easily control */
+
+.news-article-slider-heights {
+  /* Extra Small Screens (xs): 0px -> 575 */
+  @media (min-width: 0px) {
+    height: 80vw;
+  }
+
+  /* Small Screens (s): 575px -> 770px */
+  @media (min-width: 575px) {
+    height: 450px;
+  }
+
+  /* Medium screens (m): 770px -> 990px */
+  @media (min-width: 770px) {
+    height: 320px;
+  }
+
+  /* Large screens (l): 990px -> 1200px */
+  @media (min-width: 990px) {
+    height: 375px;
+  }
+
+  /* Extra large screens (xl): 1200px+ */
+  @media (min-width: 1200px) {
+    height: 25vw;
+  }
+}
+
+/* 
+=======================
+Grid CSS Styles
+=======================
+*/
+
+.footer-grid {
+  display: grid;
+  gap: 0.25rem;
+
+  /* Extra Small Screens (xs): 0px -> 575 */
+  @media (min-width: 0px) {
+    gap: 3rem;
+    grid-template-areas:
+      "a"
+      "b"
+      "c"
+      "d";
+  }
+
+  /* Small Screens (s): 575px -> 770px */
+  @media (min-width: 575px) {
+    grid-template-areas:
+      "a b"
+      "c c"
+      "d d";
+  }
+  /* Medium screens (m): 770px -> 990px */
+  @media (min-width: 770px) {
+    grid-template-areas:
+      "a b b"
+      "c c c"
+      "d d d";
+  }
+
+  /* Large screens (l): 990px -> 1200px */
+  @media (min-width: 990px) {
+    grid-template-areas:
+      "a b c"
+      "d d d";
+  }
+
+  /* Extra large screens (xl): 1200px+ */
+  @media (min-width: 1200px) {
+    gap: 0;
+    grid-template-areas: "a b c d";
+  }
+}
+
+.logo {
+  grid-area: a;
+}
+
+.info {
+  grid-area: b;
+}
+
+.links {
+  grid-area: c;
+}
+
+.contact {
+  grid-area: d;
+}
