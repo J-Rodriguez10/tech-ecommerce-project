@@ -19,8 +19,9 @@ function ProductItemSlider({
     "black-hover flex min-h-[40px] min-w-[40px] items-center justify-center rounded-[50%] bg-darkOrange text-white"
 
   return (
-    <div className={`${slideHeight} l:px-0`}>
-      <div className="group relative grid min-h-full grid-rows-[75%_25%] overflow-hidden text-darkGray">
+    // Can control the height of the Product Card through Tailwind or CSS by targeting the "product" name.
+    <div className={`${slideHeight} product l:px-0`}>
+      <div className="group relative grid min-h-full grid-rows-[70%_30%] overflow-hidden text-darkGray">
         {/* top section: product image */}
         <div className="relative flex items-center justify-center">
           <div className="light-shadow relative h-[95%] w-[95%] p-[10px]">

@@ -13,7 +13,8 @@ const config: Config = {
         darkGray: "#333333",
         lightTextGray: "#777777",
         bgGray: "#F6F6F6",
-        borderGray: "#dddddd"
+        borderGray: "#dddddd",
+        borderColor: "#e5e5e5",
       },
       // Following the breakpoints from the "cont" container css class
       screens: {

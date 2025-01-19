@@ -1,5 +1,5 @@
 type CaretProps = React.SVGProps<SVGSVGElement> & {
-  direction?: "down" | "right" | "left" | "up"
+  direction?: "down" | "right" | "left" | "up" | "none"
 }
 
 function Caret({ direction = "down", className = "", ...props }: CaretProps) {
@@ -8,7 +8,8 @@ function Caret({ direction = "down", className = "", ...props }: CaretProps) {
     down: "rotate-180 translate-y-[1px]",
     right: "rotate-90",
     up: "rotate-0",
-    left: "rotate-270"
+    left: "rotate-270",
+    none : ""
   }
 
   // Get the rotation class based on the direction

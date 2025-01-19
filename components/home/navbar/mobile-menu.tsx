@@ -23,7 +23,7 @@ function MobileMenu({
   }
 
   return (
-    // Backshadow
+    // Backdrop
     <div
       onClick={handleMenuClose}
       className={`fixed left-0 top-0 z-[100] h-screen w-screen bg-[#0d0d0d6f] ${className}`}
@@ -32,7 +32,7 @@ function MobileMenu({
         className="relative h-screen w-[370px] bg-white py-[1.35rem]"
         onClick={e => e.stopPropagation()} // Prevent event from propagating to the parent div
       >
-        {/* search bar */}
+        {/* Search bar */}
         <div className="relative mb-[1.5rem] px-4">
           <input
             className="h-[43px] w-full border border-gray-300 bg-[#f1f1f2] pl-[1.5rem] text-darkGray placeholder-darkGray focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -44,9 +44,10 @@ function MobileMenu({
           </button>
         </div>
 
-        {/* mobile navlinks */}
+        {/* Mobile navlinks */}
         <AccordionMenu items={menuLinks[variant]} />
 
+        {/* Close mobile menu button */}
         <button
           onClick={handleMenuClose}
           className="absolute right-[-2.70rem] top-0 bg-darkGray p-[0.3rem] text-white"

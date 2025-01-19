@@ -25,7 +25,7 @@ Containers
   --desktop-width: 1200px;
 }
 
-/* Define custom container class */
+/* Generic container */
 .cont {
   margin: 0 auto; /* Center the container */
   padding: 0rem; /* Add padding to the sides */
@@ -48,12 +48,47 @@ Containers
 
   /* Large screens (l): 990px -> 1200px */
   @media (min-width: 990px) {
-    max-width: 930px; /* Adjust the max-width */
+    max-width: 950px; /* Adjust the max-width  - prev 930px*/
   }
 
   /* Extra large screens (xl): 1200px+ */
   @media (min-width: 1200px) {
     max-width: 100%;
+    padding: 0 3.5rem;
+  }
+}
+
+/* The special container used for the Shop page */
+.shop-cont {
+  margin: 0 auto; /* Center the container */
+  padding: 0rem; /* Add padding to the sides */
+
+  /* Extra Small Screens (xs): 0px -> 575 */
+  @media (min-width: 0px) {
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  /* Small Screens (s): 575px -> 770px */
+  @media (min-width: 575px) {
+    max-width: 100%;
+    padding: 0 1.5rem;
+  }
+
+  /* Medium screens (m): 770px -> 990px */
+  @media (min-width: 770px) {
+    max-width: 100%;
+    padding: 0 1.5rem;
+  }
+
+  /* Large screens (l): 990px -> 1200px */
+  @media (min-width: 990px) {
+    max-width: 950px; /* Adjust the max-width  - prev 930px*/
+  }
+
+  /* Extra large screens (xl): 1200px+ */
+  @media (min-width: 1200px) {
+    max-width: 1200px;
     padding: 0 3.5rem;
   }
 }
@@ -173,7 +208,7 @@ Slider Items Heights
 
 /* 
 =======================
-Grid CSS Styles
+Footer Grid CSS Styles
 =======================
 */
 
@@ -234,4 +269,128 @@ Grid CSS Styles
 
 .contact {
   grid-area: d;
+}
+
+/* 
+============================
+Radix Accordion Menu Styles
+============================
+*/
+
+/* Initially set the SVG's rotation to be "down" (closed state) */
+.caret-icon {
+  transition: none !important;
+  transform: rotate(180deg); /* Rotate caret 180deg by default for "closed" */
+}
+
+/* When the parent button is clicked and opened (data-state="open"), rotate the caret to "up" */
+[data-state="open"] .caret-icon {
+  transform: rotate(0deg); /* Set rotation to 0deg for "open" */
+}
+
+/* 
+======================================
+Website Input Styles
+======================================
+*/
+
+/* Default styling for the checkbox */
+input[type="checkbox"] {
+  width: 1rem; /* Equivalent to h-4 in Tailwind */
+  height: 1rem; /* Equivalent to w-4 in Tailwind */
+
+  border: 1px solid #333333; /* Tailwind's border-gray-300 */
+  appearance: none; /* Removes default browser styling */
+  background-color: white;
+  cursor: pointer;
+}
+
+/* When the checkbox is checked */
+input[type="checkbox"]:checked {
+  background-color: white; /* Keep background white */
+  color: #777777; /* The checkmark's color */
+  border: 1px solid #333333;
+}
+
+/* Custom checkmark styling */
+input[type="checkbox"]:checked::before {
+  content: "✔"; /* Unicode character for checkmark */
+  font-size: 0.75rem; /* Adjust size as needed */
+  color: gray; /* Gray checkmark color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.dollar-sign {
+  position: relative;
+  border: 1px solid #e5e5e5;
+  appearance: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.dollar-sign::before {
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  content: "$";
+  left: 0;
+  font-size: 1rem;
+  z-index: 5;
+}
+
+.dollar-sign-wrapper {
+  position: relative;
+}
+
+.dollar-sign-wrapper::before {
+  position: absolute;
+  content: "";
+  left: 0.5rem; /* Adjust left spacing */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem; /* Adjust size */
+  color: #555; /* Optional: Color */
+  pointer-events: none; /* Prevent interaction with the $ symbol */
+}
+
+/* 
+======================================
+Shop Page
+======================================
+*/
+
+main.shop .product {
+  /* Extra Small Screens (xs): 0px -> 575 */
+  @media (min-width: 0px) {
+    max-height: 130vw !important;
+    min-height: 130vw !important;
+  }
+
+  /* Small Screens (s): 575px -> 770px */
+  @media (min-width: 575px) {
+    max-height: 50vw !important;
+    min-height: 50vw !important;
+  }
+
+  /* Medium screens (m): 770px -> 990px */
+  @media (min-width: 770px) {
+    max-height: 60vw !important;
+    min-height: 60vw !important;
+  }
+
+  /* Large screens (l): 990px -> 1200px */
+  @media (min-width: 990px) {
+    max-height: 320px !important;
+    min-height: 320px !important;
+  }
+
+  /* Extra large screens (xl): 1200px+ */
+  @media (min-width: 1200px) {
+    max-height: 350px !important;
+    min-height: 350px !important;
+  }
 }

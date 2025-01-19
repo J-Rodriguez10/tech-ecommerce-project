@@ -14,7 +14,11 @@ import ShopDropdownHoverMenu from "./shop-dropdown-hover-menu"
 import { SHOP_LINKS } from "@/util/data/dropdown-links/navbar-links"
 import MobileMenu from "./mobile-menu"
 
-function Navbar() {
+interface NavbarProps {
+  hasCategoryMenu?: boolean // Optional prop that controls the display of the category menu
+}
+
+function Navbar({ hasCategoryMenu = true }: NavbarProps) {
   const [isShopHovered, setIsShopHovered] = useState(false)
   const [isCategoryMenuDisplayed, setIsCategoryMenuDisplayed] = useState(true) // Desktop category menu toggle
   const [mobileMenuDisplayed, setMobileMenuDisplayed] = useState<string | null>(
@@ -33,17 +37,17 @@ function Navbar() {
 
   return (
     <nav className="relative">
-      {/* top half */}
+      {/* Top half */}
       <div className="cont text-lightTextGray">
         <div className="flex h-[112px] items-center justify-between">
-          {/* logo */}
+          {/* Logo */}
           <Image
             width={150}
             height={18.5}
             src="https://quickstep007.myshopify.com/cdn/shop/files/logo_74cea665-41e6-4e29-a95a-56ceb67bb81e_150x@2x.png?v=1702468281"
             alt="Phoone"
           />
-          {/* product search bar */}
+          {/* Product search bar */}
           <div className="relative w-[400px] m:hidden">
             <input
               className="h-[50px] w-full rounded-[1.5rem] border border-gray-300 bg-[#f7f8fa] px-[1rem] pr-[3rem] focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -56,7 +60,7 @@ function Navbar() {
             </button>
           </div>
 
-          {/* features listing */}
+          {/* Features listing */}
           <ul className="flex gap-[1.5rem] text-darkGray">
             <Navlink className="orange-hover" href="/">
               <Star />
@@ -79,32 +83,35 @@ function Navbar() {
         </div>
       </div>
 
-      {/* bottom half */}
-      <div className="min-w-screen bg-darkGray m:bg-white">
+      {/* Bottom half - if category menu is not present, the bottom half of the navbar will not be displayed in screens lower than 1200px */}
+      <div className={`min-w-screen bg-darkGray m:bg-white ${!hasCategoryMenu ? "m:hidden": "" }`}>
         <div className="cont relative flex h-[65.5px] items-center justify-between text-white">
-          {/* category menu - placed left  -- OPTIONAL --*/}
-          <aside className="absolute bottom-0 top-0 h-full max-h-[64px] w-[21%] min-w-[210px] m:relative m:w-full">
-            {/* Toggles the Desktop Category Menu and Mobile Category Menu */}
-            <button
-              onClick={() => {
-                if (window.innerWidth <= 990) {
-                  handleMobileMenuDisplay("category-menu") // Mobile
-                } else {
-                  setIsCategoryMenuDisplayed(prev => !prev) // Desktop
-                }
-              }}
-              className="flex h-full w-full items-center justify-between gap-[0.7rem] bg-darkOrange px-[1rem] text-[1.1rem] font-[500] uppercase"
-            >
-              Shop By Category
-              <MenuSvg />
-            </button>
-            <div className="m:hidden">
-              <CategoryMenu isDisplayed={isCategoryMenuDisplayed} />
-            </div>
-          </aside>
+          
+          {/* -- OPTIONAL -- category menu - placed left  */}
+          {hasCategoryMenu && (
+            <aside className="absolute bottom-0 top-0 h-full max-h-[64px] w-[21%] min-w-[210px] m:relative m:w-full">
+              {/* Toggles the Desktop Category Menu and Mobile Category Menu */}
+              <button
+                onClick={() => {
+                  if (window.innerWidth <= 990) {
+                    handleMobileMenuDisplay("category-menu") // Mobile
+                  } else {
+                    setIsCategoryMenuDisplayed(prev => !prev) // Desktop
+                  }
+                }}
+                className="flex h-full w-full items-center justify-between gap-[0.7rem] bg-darkOrange px-[1rem] text-[1.1rem] font-[500] uppercase"
+              >
+                Shop By Category
+                <MenuSvg />
+              </button>
+              <div className="m:hidden">
+                <CategoryMenu isDisplayed={isCategoryMenuDisplayed} />
+              </div>
+            </aside>
+          )}
 
-          {/* navlinks - placed center */}
-          <ul className="m-auto flex h-full gap-[2.3rem] text-[1rem] font-[500] m:hidden">
+          {/* Navlinks - placed center */}
+          <ul className="m-auto flex h-full gap-[2.3rem] text-[1rem] font-[500] m:hidden ">
             <Navlink className="orange-hover" href="/">
               Home
             </Navlink>
