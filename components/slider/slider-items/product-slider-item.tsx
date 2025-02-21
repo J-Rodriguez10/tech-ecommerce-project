@@ -1,3 +1,9 @@
+/**
+ * This component represents an individual product item in a slider.
+ * It includes a product image (with hover effect), product description, rating, and interactive buttons like "Add to wishlist", "Compare", and "Quick View".
+ */
+
+
 import Image from "next/image"
 
 import Navlink from "@/components/home/navbar/navlink"
@@ -7,32 +13,33 @@ import Heart from "@/components/svgs/heart"
 import MagnifyingGlass from "@/components/svgs/magnifying-glass"
 
 interface ProductItemSliderProps {
-  slideHeight?: string // represents the height for the individual slide components (Slick plugin cannot dynamically set height). By default its set to "h-[370px] l:h-[320px] s:min-h-[600px]" which will work for basic
-  hoverButtons?: boolean // controls whether or not the hover buttons appear when user hovers
+  slideHeight?: string // Represents the height for the individual slide components (Slick plugin cannot dynamically set height). Default is set to "h-[370px] l:h-[320px] s:min-h-[600px]" which works for basic setups.
+  hoverButtons?: boolean // Controls whether or not the hover buttons appear when user hovers over the product.
 }
 
 function ProductItemSlider({
   slideHeight = "h-[370px] l:h-[320px] s:min-h-[600px]",
   hoverButtons = true
 }: ProductItemSliderProps) {
+  // Style for the hover buttons that appear on the product image
   const hoverButtonsStyle =
-    "black-hover flex min-h-[40px] min-w-[40px] items-center justify-center rounded-[50%] bg-darkOrange text-white"
+    "black-hover flex min-h-[40px] min-w-[40px] h-[30%] w-[30%] items-center justify-center rounded-[50%] bg-darkOrange text-white"
 
   return (
-    // Can control the height of the Product Card through Tailwind or CSS by targeting the "product" name.
+    // The outer container for the product, controlling the height through Tailwind or CSS
     <div className={`${slideHeight} product l:px-0`}>
       <div className="group relative grid min-h-full grid-rows-[70%_30%] overflow-hidden text-darkGray">
-        {/* top section: product image */}
+        {/* Top section: Product image */}
         <div className="relative flex items-center justify-center">
           <div className="light-shadow relative h-[95%] w-[95%] p-[10px]">
-            {/* initial image */}
+            {/* Initial image shown by default */}
             <Image
               src="https://quickstep007.myshopify.com/cdn/shop/files/24_1024x1024.jpg?v=1701772818"
               alt="pic"
               fill
               className="absolute inset-0 object-contain transition-opacity duration-500 ease-in-out group-hover:opacity-0"
             />
-            {/* hover image */}
+            {/* Hover image shown when the user hovers */}
             <Image
               src="https://quickstep007.myshopify.com/cdn/shop/files/25_1024x1024.jpg?v=1701772818"
               alt="hover-pic"
@@ -41,7 +48,7 @@ function ProductItemSlider({
             />
           </div>
 
-          {/* hover buttons */}
+          {/* Hover buttons (only visible on hover) */}
           {hoverButtons && (
             <ul className="absolute right-4 top-[15%] flex transform flex-col gap-[0.5rem] opacity-0 duration-500 ease-in-out group-hover:-translate-y-[10%] group-hover:opacity-100">
               <Navlink
@@ -75,12 +82,12 @@ function ProductItemSlider({
           )}
         </div>
 
-        {/* bottom section: product description */}
+        {/* Bottom section: Product description */}
         <div className="flex flex-col justify-center gap-[10px] text-center">
-          {/* 5 star rating */}
+          {/* 5-star rating */}
           <Rating rating={3.5} />
 
-          {/* Container for product name and "+ Select Options" */}
+          {/* Container for the product name and "+ Select Options" */}
           <div className="relative h-[25px]">
             {/* Product name */}
             <p className="absolute inset-x-0 text-[1.1rem] font-[400] transition-all duration-500 ease-in-out group-hover:translate-y-[-9px] group-hover:opacity-0">
@@ -93,7 +100,7 @@ function ProductItemSlider({
             </div>
           </div>
 
-          {/* price */}
+          {/* Product price */}
           <p className="text-[0.9rem] font-[500]">$150.00</p>
         </div>
       </div>
@@ -101,8 +108,10 @@ function ProductItemSlider({
   )
 }
 
+// This component renders the labels for the hover buttons on the product image.
+
 interface ButtonLabelProps {
-  label: string // The label corresponding to the individual Hover Buttons
+  label: string // The label corresponding to the individual hover buttons.
 }
 
 function ButtonLabel({ label }: ButtonLabelProps) {

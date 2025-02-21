@@ -1,14 +1,17 @@
 import Star from "@/components/svgs/navbar-svgs/star"
 
+
+interface RatingProps {
+  rating: number // Represents the rating that is displayed
+  className ?:string
+  starSize?: string // Controls the size of the stars displayed - Enter a measuring unit like 1rem 
+}
+
 function Rating({
   rating,
   className = "",
   starSize = "1rem"
-}: {
-  rating: number
-  className?: string
-  starSize?: string
-}) {
+}: RatingProps) {
   const stars = [1, 2, 3, 4, 5]
 
   return (

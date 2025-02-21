@@ -1,9 +1,16 @@
+/**
+ * Feature Component
+ *
+ * This component represents an individual feature with an icon and explanation.
+ * It dynamically renders either an image URL or an SVG component as the icon.
+ */
+
 import Image from "next/image"
 
 interface FeatureProps {
-  icon: string | JSX.Element // icon can be a string (URL) or an SVG component
-  featureExplanation: string
-  className?: string
+  icon: string | JSX.Element // Icon can be an image URL (string) or an SVG component (JSX.Element)
+  featureExplanation: string // Description of the feature
+  className?: string // Optional additional classes for styling
 }
 
 function Feature({ icon, featureExplanation, className = "" }: FeatureProps) {
@@ -11,9 +18,9 @@ function Feature({ icon, featureExplanation, className = "" }: FeatureProps) {
     <li
       className={`flex h-full flex-1 items-center justify-center gap-[1rem] text-center text-darkGray ${className} l:flex-col`}
     >
-      {/* rendering icon */}
+      {/* Rendering the icon */}
       <div className="h-[2.5rem] w-[2.5rem]">
-        {/* displaying either an Image url or a SVG component */}
+        {/* Displaying either an Image URL or an SVG component */}
         {typeof icon === "string" ? (
           <Image
             width={20}
@@ -27,11 +34,19 @@ function Feature({ icon, featureExplanation, className = "" }: FeatureProps) {
         )}
       </div>
 
-      {/* feature explanation */}
+      {/* Feature explanation text */}
       <p className="text-center text-[1rem] font-[500]">{featureExplanation}</p>
     </li>
   )
 }
+
+/**
+ * FeatureStrip Component
+ *
+ * This component displays a horizontal (or vertical on smaller screens) list of features.
+ * It consists of multiple Feature components representing different selling points.
+ */
+
 function FeatureStrip() {
   return (
     <div>

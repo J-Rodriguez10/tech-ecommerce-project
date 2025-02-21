@@ -1,17 +1,21 @@
+// Props interface for SectionHeader component
 interface SectionHeaderProps {
-  children: React.ReactNode // Represents the main header or dynamic content for the section
-  subHeader: string // Represents the sub header text for the section
-  className?: string
+  children: React.ReactNode // The main content of the header (typically a title)
+  subHeader?: string // Optional sub-header text for additional context or description
+  className?: string // Optional additional CSS classes to style the component
 }
 
 function SectionHeader({
   children,
-  subHeader,
+  subHeader = "",
   className = ""
 }: SectionHeaderProps) {
   return (
     <div className={`text-center ${className}`}>
-      <h4 className="text-[2.75rem] font-[400]">{children}</h4>
+      {/* Main header text */}
+      <h4 className="text-[2.75rem] font-[400] capitalize">{children}</h4>
+
+      {/* Optional sub-header text */}
       <p className="mb-[2.25rem] text-[1.25rem]">{subHeader}</p>
     </div>
   )

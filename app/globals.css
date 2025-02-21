@@ -25,7 +25,7 @@ Containers
   --desktop-width: 1200px;
 }
 
-/* Generic container */
+/* Generic container that sticks to the sides as the screen size increases */
 .cont {
   margin: 0 auto; /* Center the container */
   padding: 0rem; /* Add padding to the sides */
@@ -58,8 +58,8 @@ Containers
   }
 }
 
-/* The special container used for the Shop page */
-.shop-cont {
+/* The special container that sticks to the sides as the screen size decreases */
+.stick-cont {
   margin: 0 auto; /* Center the container */
   padding: 0rem; /* Add padding to the sides */
 
@@ -93,6 +93,76 @@ Containers
   }
 }
 
+/* Container that stays compacted towards the center as the screen size decreases */
+.tight-cont {
+  margin: 0 auto; /* Center the container */
+  padding: 0rem; /* Add padding to the sides */
+
+  /* Extra Small Screens (xs): 0px -> 575 */
+  @media (min-width: 0px) {
+    max-width: 100%;
+    padding: 0 0.75rem;
+  }
+
+  /* Small Screens (s): 575px -> 770px */
+  @media (min-width: 575px) {
+    max-width: 540px;
+    padding: 0 1.5rem;
+  }
+
+  /* Medium screens (m): 770px -> 990px */
+  @media (min-width: 770px) {
+    max-width: 720px;
+    padding: 0 1.5rem;
+  }
+
+  /* Large screens (l): 990px -> 1200px */
+  @media (min-width: 990px) {
+    max-width: 950px; /* Adjust the max-width  - prev 930px*/
+  }
+
+  /* Extra large screens (xl): 1200px+ */
+  @media (min-width: 1200px) {
+    max-width: 1200px;
+    padding: 0 1.5rem;
+  }
+}
+
+.tightest-cont {
+  margin: 0 auto; /* Center the container */
+  padding: 0rem; /* Add padding to the sides */
+
+  /* Extra Small Screens (xs): 0px -> 575 */
+  @media (min-width: 0px) {
+    max-width: 100%;
+    padding: 0 0.75rem;
+  }
+
+  /* Small Screens (s): 575px -> 770px */
+  @media (min-width: 575px) {
+    max-width: 530px;
+    padding: 0 1.5rem;
+  }
+
+  /* Medium screens (m): 770px -> 990px */
+  @media (min-width: 770px) {
+    max-width: 540px;
+    padding: 0 1.5rem;
+  }
+
+  /* Large screens (l): 990px -> 1200px */
+  @media (min-width: 990px) {
+    max-width: 100%; /* Adjust the max-width  - prev 930px*/
+    padding: 0 3rem;
+  }
+
+  /* Extra large screens (xl): 1200px+ */
+  @media (min-width: 1200px) {
+    max-width: 1200px;
+    padding: 0 1.5rem;
+  }
+}
+
 /* 
 =======================
 Animations
@@ -117,6 +187,23 @@ Animations
 .black-hover:hover {
   transition: all 300ms ease-out;
   background-color: #333333;
+}
+
+/* Add this to your globals.css or a specific CSS file */
+@keyframes dotAnimation {
+  0% {
+    transform: scale(0.1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.1);
+  }
+}
+
+.animate-dot {
+  animation: dotAnimation 2s ease-in-out infinite;
 }
 /* 
 =======================
@@ -171,6 +258,10 @@ Box Shadows
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.04);
 }
 
+.inset-shadow {
+  box-shadow: inset 0 0 7px rgba(0, 0, 0, .1);
+}
+
 /* 
 =======================
 Slider Items Heights
@@ -178,7 +269,6 @@ Slider Items Heights
 */
 
 /* Reserved for setting height for slider items where Tailwind can't easily control */
-
 .news-article-slider-heights {
   /* Extra Small Screens (xs): 0px -> 575 */
   @media (min-width: 0px) {
@@ -296,27 +386,27 @@ Website Input Styles
 
 /* Default styling for the checkbox */
 input[type="checkbox"] {
-  width: 1rem; /* Equivalent to h-4 in Tailwind */
-  height: 1rem; /* Equivalent to w-4 in Tailwind */
+  width: 1rem; 
+  height: 1rem;
 
-  border: 1px solid #333333; /* Tailwind's border-gray-300 */
-  appearance: none; /* Removes default browser styling */
+  border: 1px solid #333333; 
+  appearance: none;
   background-color: white;
   cursor: pointer;
 }
 
 /* When the checkbox is checked */
 input[type="checkbox"]:checked {
-  background-color: white; /* Keep background white */
-  color: #777777; /* The checkmark's color */
+  background-color: white; 
+  color: #777777; 
   border: 1px solid #333333;
 }
 
 /* Custom checkmark styling */
 input[type="checkbox"]:checked::before {
-  content: "✔"; /* Unicode character for checkmark */
-  font-size: 0.75rem; /* Adjust size as needed */
-  color: gray; /* Gray checkmark color */
+  content: "✔"; 
+  font-size: 0.75rem;
+  color: gray; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -349,12 +439,12 @@ input[type="checkbox"]:checked::before {
 .dollar-sign-wrapper::before {
   position: absolute;
   content: "";
-  left: 0.5rem; /* Adjust left spacing */
+  left: 0.5rem;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1rem; /* Adjust size */
-  color: #555; /* Optional: Color */
-  pointer-events: none; /* Prevent interaction with the $ symbol */
+  font-size: 1rem; 
+  color: #555;
+  pointer-events: none; 
 }
 
 /* 
@@ -392,5 +482,81 @@ main.shop .product {
   @media (min-width: 1200px) {
     max-height: 350px !important;
     min-height: 350px !important;
+  }
+}
+
+/* 
+======================================
+Blog Page
+======================================
+*/
+
+.blog-article-slider-heights {
+  /* Extra Small Screens (xs): 0px -> 575 */
+  @media (min-width: 0px) {
+    height: 80vw;
+  }
+
+  /* Small Screens (s): 575px -> 770px */
+  @media (min-width: 575px) {
+    height: 450px;
+  }
+
+  /* Medium screens (m): 770px -> 990px */
+  @media (min-width: 770px) {
+    height: 320px;
+  }
+
+  /* Large screens (l): 990px -> 1200px */
+  @media (min-width: 990px) {
+    height: 375px;
+  }
+
+  /* Extra large screens (xl): 1200px+ */
+  @media (min-width: 1200px) {
+    height: 25vw;
+  }
+}
+
+/* 
+======================================
+Input Styles
+======================================
+*/
+
+input[type="checkbox"].white-check:checked::before {
+  color: white;
+}
+
+/* 
+======================================
+Grid Styles
+======================================
+*/
+
+.grid-container {
+  display: grid;
+
+  /* Extra Small Screens (xs): 0px → 574px */
+  grid-template-columns: repeat(1, 1fr);
+
+  /* Small Screens (s): 575px → 769px */
+  @media (min-width: 575px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Medium Screens (m): 770px → 989px */
+  @media (min-width: 770px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Large Screens (l): 990px → 1199px */
+  @media (min-width: 990px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Extra Large Screens (xl): 1200px+ */
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr); /* Optional: Keeps the same layout */
   }
 }

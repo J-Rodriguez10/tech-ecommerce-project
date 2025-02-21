@@ -2,15 +2,12 @@
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import dynamic from "next/dynamic"
+import Slider from "react-slick"
+
 import CustomSliderArrow from "../slider/custom-slider-arrow"
 import ProductItemSlider from "../slider/slider-items/product-slider-item"
 import SectionHeader from "../section-header"
 
-// Dynamically import react-slick with SSR disabled
-const Slider = dynamic(() => import("react-slick"), {
-  ssr: false
-})
 
 function FeaturedCollectionSection() {
   const sliderSettings = {

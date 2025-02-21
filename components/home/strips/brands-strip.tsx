@@ -1,15 +1,16 @@
+/**
+ * Strip displaying brands the website sells.
+ */
+
 "use client"
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import dynamic from "next/dynamic"
+import Slider from "react-slick"
 import Image from "next/image"
+
 import { DUMMY_BRANDS } from "@/util/data/dummy-data/dummy-brands"
 
-// Dynamically import react-slick with SSR disabled
-const Slider = dynamic(() => import("react-slick"), {
-  ssr: false
-})
 
 function BrandSliderItem({
   brandUrl,

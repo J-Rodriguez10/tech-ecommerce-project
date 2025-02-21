@@ -1,3 +1,8 @@
+/**
+ * Navlink - A flexible navigation link that supports hover-based dropdowns.
+ * Can display a caret icon and handle different dropdown directions.
+ */
+
 "use client"
 
 import { useState, ReactNode } from "react"
@@ -5,13 +10,13 @@ import Link from "next/link"
 import Caret from "../../svgs/navbar-svgs/caret-svg"
 
 type NavlinkProps = {
-  href: string // The URL for the link
-  children: ReactNode // The content of the link (text or other elements)
-  className?: string // Additional CSS classes for styling
-  hoverContent?: ReactNode // Optional dropdown content displayed on hover
-  hoverContentDirection?: "down" | "right" | "left" // Direction of the dropdown (default: down)
-  hasCaret?: boolean // Determines if a caret icon is displayed with the link
-  hoverContentInteractable?: boolean // Whether the dropdown content can be interacted with
+  href: string // Link destination
+  children: ReactNode // Link content (text or elements)
+  className?: string // Custom styling classes
+  hoverContent?: ReactNode // Optional dropdown content
+  hoverContentDirection?: "down" | "right" | "left" // Dropdown direction (default: down)
+  hasCaret?: boolean // Shows a caret icon if true
+  hoverContentInteractable?: boolean // Allows interaction with dropdown if true
 }
 
 function Navlink({
@@ -23,10 +28,9 @@ function Navlink({
   hasCaret = false,
   hoverContentInteractable = true
 }: NavlinkProps) {
-  // State to track hover status
-  const [isHovered, setIsHovered] = useState(false)
+  const [isHovered, setIsHovered] = useState(false) // Tracks hover state
 
-  // Style mapping for different dropdown directions
+  // Positioning styles for dropdown based on direction
   const hoverContentDirectionStyles: Record<string, string> = {
     down: "left-0 top-full mt-1",
     right: "left-full top-0 ml-0",

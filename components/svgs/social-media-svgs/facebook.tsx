@@ -1,10 +1,10 @@
 type FacebookProps = React.SVGProps<SVGSVGElement>
 
-function Facebook({className="", ...props}: FacebookProps) {
+function Facebook({className="", width="25", height="25", ...props}: FacebookProps) {
   return (
     <svg
-      width={25}
-      height={25}
+      width={width}
+      height={height}
       viewBox="0 0 61 61"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

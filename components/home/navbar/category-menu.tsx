@@ -1,3 +1,8 @@
+/**
+ * CategoryMenu - Displays a list of product categories with optional dropdowns on hover.
+ * Visibility is controlled via a state prop.
+ */
+
 "use client"
 
 import { useState } from "react"
@@ -10,39 +15,43 @@ import {
 } from "@/util/data/dropdown-links/category-menu-links"
 
 interface CategoryMenuProps {
-  isDisplayed: boolean // Refers to if the Category Menu is displayed to the user, meant to be used in conjunction with a useState button
+  isDisplayed: boolean // Determines if the category menu is visible
 }
 
 function CategoryMenu({ isDisplayed }: CategoryMenuProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
+  // Handles when a category is hovered
   function handleMouseEnter(item: string) {
     setHoveredItem(item)
   }
 
+  // Ensures dropdown only hides if the user leaves both the menu item and the dropdown
   function handleMouseLeave(item: string) {
-    // Ensure dropdown only hides if the user leaves both the menu item and the dropdown
     if (hoveredItem !== item) {
       setHoveredItem(null)
     }
   }
 
+  // Shared styles for category menu items
   const categoryMenuStyles =
     "relative py-[0.95rem] px-[1.25rem] text-[.9rem] font-[500] orange-hover after:absolute after:left-1/2 after:bottom-0 after:w-[90%] after:translate-x-[-50%] after:h-[0.5px] after:bg-borderGray"
 
   return (
-    <div className="w-full relative text-lightTextGray">
+    <div className="relative w-full text-lightTextGray">
+      {/* Category list container */}
       <ul
         className={`default-transition w-full overflow-hidden border-[2px] border-darkOrange ${
           isDisplayed ? "max-h-[525px]" : "max-h-[0]"
         }`}
       >
+        {/* Categories with dropdowns */}
         <div
           onMouseEnter={() => handleMouseEnter("Cameras & Videos")}
           onMouseLeave={() => handleMouseLeave("Cameras & Videos")}
         >
           <Navlink
-            href="/"
+            href="/shop"
             className={categoryMenuStyles}
             hasCaret
             hoverContentDirection="right"
@@ -55,7 +64,7 @@ function CategoryMenu({ isDisplayed }: CategoryMenuProps) {
           onMouseLeave={() => handleMouseLeave("Computers & Laptops")}
         >
           <Navlink
-            href="/"
+            href="/shop"
             className={categoryMenuStyles}
             hasCaret
             hoverContentDirection="right"
@@ -63,33 +72,19 @@ function CategoryMenu({ isDisplayed }: CategoryMenuProps) {
             Computers & Laptops
           </Navlink>
         </div>
-        <Navlink href="/" className={categoryMenuStyles}>
-          Home Appliances
-        </Navlink>
-        <Navlink href="/" className={categoryMenuStyles}>
-          Mobiles & Tablets
-        </Navlink>
-        <Navlink href="/" className={categoryMenuStyles}>
-          Smart Phones
-        </Navlink>
-        <Navlink href="/" className={categoryMenuStyles}>
-          Portable Speakers
-        </Navlink>
-        <Navlink href="/" className={categoryMenuStyles}>
-          Music & Gaming
-        </Navlink>
-        <Navlink href="/" className={categoryMenuStyles}>
-          Phone Cases
-        </Navlink>
-        <Navlink href="/" className={categoryMenuStyles}>
-          Bluetooth Speaker
-        </Navlink>
-        <Navlink href="/" className={categoryMenuStyles}>
-          Contact Us
-        </Navlink>
+
+        {/* Static category links */}
+        <Navlink href="/shop" className={categoryMenuStyles}>Home Appliances</Navlink>
+        <Navlink href="/shop" className={categoryMenuStyles}>Mobiles & Tablets</Navlink>
+        <Navlink href="/shop" className={categoryMenuStyles}>Smart Phones</Navlink>
+        <Navlink href="/shop" className={categoryMenuStyles}>Portable Speakers</Navlink>
+        <Navlink href="/shop" className={categoryMenuStyles}>Music & Gaming</Navlink>
+        <Navlink href="/shop" className={categoryMenuStyles}>Phone Cases</Navlink>
+        <Navlink href="/shop" className={categoryMenuStyles}>Bluetooth Speaker</Navlink>
+        <Navlink href="/shop" className={categoryMenuStyles}>Contact Us</Navlink>
       </ul>
 
-      {/* Hover content for "Cameras & Videos" */}
+      {/* Dropdown for "Cameras & Videos" */}
       {hoveredItem === "Cameras & Videos" && (
         <div
           onMouseEnter={() => handleMouseEnter("Cameras & Videos")}
@@ -102,7 +97,7 @@ function CategoryMenu({ isDisplayed }: CategoryMenuProps) {
         </div>
       )}
 
-      {/* Hover content for "Computers & Laptops" */}
+      {/* Dropdown for "Computers & Laptops" */}
       {hoveredItem === "Computers & Laptops" && (
         <div
           onMouseEnter={() => handleMouseEnter("Computers & Laptops")}

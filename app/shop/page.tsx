@@ -7,8 +7,8 @@ function ShopPage() {
   return (
     <>
       <Navbar hasCategoryMenu={false} />
-      <PageHeader />
-      <div className="shop-cont h-auto">
+      <PageHeader header="Shop" route="Shop" />
+      <div className="stick-cont h-auto">
         <ProductsResultsDisplayer />
       </div>
       <Footer />

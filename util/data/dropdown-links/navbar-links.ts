@@ -3,51 +3,39 @@ import { AccordionItemProps } from "@/components/accordion-menu"
 
 export const SHOP_LINKS: Links[] = [
   {
-    headerLink: { label: "Smartphones", href: "/smartphones" },
+    headerLink: { label: "Smartphones", href: "/shop" },
     links: [
-      { label: "Samsung", href: "/smartphones/samsung" },
-      { label: "Honor", href: "/smartphones/honor" },
-      { label: "Motorola", href: "/smartphones/motorola" },
-      { label: "iPhone", href: "/smartphones/iphone" },
-      { label: "OnePlus", href: "/smartphones/oneplus" },
-      { label: "Infinix", href: "/smartphones/infinix" },
-      { label: "Nokia", href: "/smartphones/nokia" }
+      { label: "Samsung", href: "/shop" },
+      { label: "Honor", href: "/shop" },
+      { label: "Motorola", href: "/shop" },
+      { label: "iPhone", href: "/shop" },
+      { label: "OnePlus", href: "/shop" },
+      { label: "Infinix", href: "/shop" },
+      { label: "Nokia", href: "/shop" }
     ]
   },
   {
-    headerLink: { label: "Mobile Accessories", href: "/mobile-accessories" },
+    headerLink: { label: "Mobile Accessories", href: "/shop" },
     links: [
-      { label: "Power Bank", href: "/mobile-accessories/power-bank" },
-      {
-        label: "Charger & Adapter",
-        href: "/mobile-accessories/charger-adapter"
-      },
-      { label: "Memory Card", href: "/mobile-accessories/memory-card" },
-      { label: "Data Cable", href: "/mobile-accessories/data-cable" },
-      { label: "Case & Cover", href: "/mobile-accessories/case-cover" },
-      { label: "Headphone", href: "/mobile-accessories/headphone" },
-      { label: "Protector", href: "/mobile-accessories/protector" }
+      { label: "Power Bank", href: "/shop" },
+      { label: "Charger & Adapter", href: "/shop" },
+      { label: "Memory Card", href: "/shop" },
+      { label: "Data Cable", href: "/shop" },
+      { label: "Case & Cover", href: "/shop" },
+      { label: "Headphone", href: "/shop" },
+      { label: "Protector", href: "/shop" }
     ]
   },
   {
-    headerLink: {
-      label: "Electronics & Appliances",
-      href: "/electronics-appliances"
-    },
+    headerLink: { label: "Electronics & Appliances", href: "/shop" },
     links: [
-      { label: "Television", href: "/electronics-appliances/television" },
-      {
-        label: "Air Conditioner",
-        href: "/electronics-appliances/air-conditioner"
-      },
-      { label: "Room Heater", href: "/electronics-appliances/room-heater" },
-      { label: "Rice Cooker", href: "/electronics-appliances/rice-cooker" },
-      { label: "Gas Burner", href: "/electronics-appliances/gas-burner" },
-      {
-        label: "Washing Machine",
-        href: "/electronics-appliances/washing-machine"
-      },
-      { label: "Home Theater", href: "/electronics-appliances/home-theater" }
+      { label: "Television", href: "/shop" },
+      { label: "Air Conditioner", href: "/shop" },
+      { label: "Room Heater", href: "/shop" },
+      { label: "Rice Cooker", href: "/shop" },
+      { label: "Gas Burner", href: "/shop" },
+      { label: "Washing Machine", href: "/shop" },
+      { label: "Home Theater", href: "/shop" }
     ]
   }
 ]
@@ -61,71 +49,41 @@ export const ACCORDION_NAVBAR_LINKS: AccordionItemProps[] = [
     links: [
       {
         label: "Smartphones",
-        href: "/shop/smartphones",
+        href: "/shop",
         links: [
-          { label: "Samsung", href: "/" },
-          { label: "Honor", href: "/" },
-          { label: "Motorola", href: "/" },
-          { label: "iPhone", href: "/" },
-          { label: "OnePlus", href: "/" },
-          { label: "Infinix", href: "/" },
-          { label: "Nokia", href: "/" }
+          { label: "Samsung", href: "/shop" },
+          { label: "Honor", href: "/shop" },
+          { label: "Motorola", href: "/shop" },
+          { label: "iPhone", href: "/shop" },
+          { label: "OnePlus", href: "/shop" },
+          { label: "Infinix", href: "/shop" },
+          { label: "Nokia", href: "/shop" }
         ]
       },
       {
         label: "Mobile Accessories",
-        href: "/shop/mobile-accessories",
+        href: "/shop",
         links: [
-          { label: "Power Bank", href: "/shop/mobile-accessories/power-bank" },
-          {
-            label: "Charger & Adapter",
-            href: "/shop/mobile-accessories/charger-adapter"
-          },
-          {
-            label: "Memory Card",
-            href: "/shop/mobile-accessories/memory-card"
-          },
-          { label: "Data Cable", href: "/shop/mobile-accessories/data-cable" },
-          {
-            label: "Case & Cover",
-            href: "/shop/mobile-accessories/case-cover"
-          },
-          { label: "Headphone", href: "/shop/mobile-accessories/headphone" },
-          { label: "Protector", href: "/shop/mobile-accessories/protector" }
+          { label: "Power Bank", href: "/shop" },
+          { label: "Charger & Adapter", href: "/shop" },
+          { label: "Memory Card", href: "/shop" },
+          { label: "Data Cable", href: "/shop" },
+          { label: "Case & Cover", href: "/shop" },
+          { label: "Headphone", href: "/shop" },
+          { label: "Protector", href: "/shop" }
         ]
       },
       {
         label: "Electronics & Appliances",
-        href: "/shop/electronics-appliances",
+        href: "/shop",
         links: [
-          {
-            label: "Television",
-            href: "/shop/electronics-appliances/television"
-          },
-          {
-            label: "Air Conditioner",
-            href: "/shop/electronics-appliances/air-conditioner"
-          },
-          {
-            label: "Room Heater",
-            href: "/shop/electronics-appliances/room-heater"
-          },
-          {
-            label: "Rice Cooker",
-            href: "/shop/electronics-appliances/rice-cooker"
-          },
-          {
-            label: "Gas Burner",
-            href: "/shop/electronics-appliances/gas-burner"
-          },
-          {
-            label: "Washing Machine",
-            href: "/shop/electronics-appliances/washing-machine"
-          },
-          {
-            label: "Home Theater",
-            href: "/shop/electronics-appliances/home-theater"
-          }
+          { label: "Television", href: "/shop" },
+          { label: "Air Conditioner", href: "/shop" },
+          { label: "Room Heater", href: "/shop" },
+          { label: "Rice Cooker", href: "/shop" },
+          { label: "Gas Burner", href: "/shop" },
+          { label: "Washing Machine", href: "/shop" },
+          { label: "Home Theater", href: "/shop" }
         ]
       }
     ]

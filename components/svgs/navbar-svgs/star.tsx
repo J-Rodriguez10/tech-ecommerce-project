@@ -1,6 +1,7 @@
 type StarProps = React.SVGProps<SVGSVGElement> & {
-  filled?: boolean
-  halfFilled?: boolean
+  filled?: boolean // Controls if the star is fully filled
+  halfFilled?: boolean // Controls if the star is half filled
+  onClick?: () => void // Function that gets performed when the star svg is clicked on
 }
 
 function Star({ filled, halfFilled, ...props }: StarProps) {

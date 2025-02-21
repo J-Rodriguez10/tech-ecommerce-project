@@ -1,6 +1,7 @@
 import * as Accordion from "@radix-ui/react-accordion"
 import AccordionToggleHeader from "./custom-accordion-menu-components/accordion-header"
-import CategoriesDropdown from "./custom-accordion-menu-components/dropdowns/catgories-dropdown"
+
+import CategoriesDropdown from "./custom-accordion-menu-components/dropdowns/categories-dropdown"
 import AvailabilityDropdown from "./custom-accordion-menu-components/dropdowns/availability-dropdown"
 import PriceDropdown from "./custom-accordion-menu-components/dropdowns/price-dropdown"
 import BrandDropdown from "./custom-accordion-menu-components/dropdowns/brand-dropdown"

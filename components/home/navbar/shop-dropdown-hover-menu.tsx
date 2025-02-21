@@ -1,3 +1,7 @@
+/**
+ * This component renders a dropdown hover menu for the "Shop" section.
+ * It displays categories and their respective links, along with a product slider showcasing items.
+ */
 "use client"
 
 import Link from "next/link"
@@ -22,8 +26,8 @@ function ShopDropdownHoverMenu({ links }: DropdownProps) {
     dots: false, // Disable pagination dots
     infinite: true, // Enable infinite scrolling
     speed: 500, // Transition speed in ms
-    slidesToShow: 1, // Number of slides visible at a time
-    slidesToScroll: 1, // Number of slides to scroll at a time
+    slidesToShow: 1, 
+    slidesToScroll: 1, 
     nextArrow: <CustomSliderArrow direction="right" />, // Custom next arrow
     prevArrow: <CustomSliderArrow direction="left" /> // Custom previous arrow
   }

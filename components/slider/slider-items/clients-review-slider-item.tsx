@@ -3,12 +3,17 @@ import Image from "next/image"
 import Rating from "@/components/rating"
 
 export interface ClientsReviewSliderItemProps {
-  userName: string
-  profession: string
-  profPic: string
-  review: string
-  rating: number
+  userName: string // The name of the reviewer
+  profession: string // The profession or title of the reviewer
+  profPic: string // URL of the reviewer's profile picture
+  review: string // The review content provided by the client
+  rating: number // The rating given by the client (e.g., 1-5 stars)
 }
+
+/*  
+  Represents an individual client review in a slider format.  
+  Displays the client's review text, rating, profile picture, name, and profession.  
+*/
 
 function ClientsReviewSliderItem({
   userName,

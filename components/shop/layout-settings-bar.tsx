@@ -1,17 +1,21 @@
 import Funnel from "../svgs/shop/funnel"
 import { Layout1, Layout2, Layout3, Layout4 } from "../svgs/shop/layout-svgs"
 
-function LayoutSettingsBar() {
+interface LayoutSettingsBarProps {
+  handleMobileMenuDisplay: () => void // Function responsible for displaying/removing the filters mobile menu. Should be added to the Funnel button.
+}
+
+function LayoutSettingsBar({ handleMobileMenuDisplay }: LayoutSettingsBarProps) {
   return (
-    <aside className="flex h-auto items-center justify-between  text-darkGray py-3  ">
-      {/* Grid layout settings */}
+    <aside className="flex h-auto items-center justify-between py-3 text-darkGray">
+      {/* Grid layout settings - icons to toggle between different layouts */}
       <ul className="flex items-center gap-4 text-gray-400">
         <li className="text-darkGray">
           <Layout4 />
         </li>
         <li>
           <Layout3 />
-        </li> 
+        </li>
         <li>
           <Layout2 />
         </li>
@@ -21,10 +25,11 @@ function LayoutSettingsBar() {
       </ul>
 
       {/* Product results display settings */}
-      <div className="flex items-center gap-6 l:gap-5 ">
+      <div className="flex items-center gap-6 l:gap-5">
+        {/* Displaying number of results */}
         <p className="m:hidden">Showing 1 - 12 of 15 results</p>
 
-        {/* Results per page */}
+        {/* Input for number of results per page */}
         <p className="s:hidden">
           Show
           <input
@@ -33,12 +38,12 @@ function LayoutSettingsBar() {
             aria-label="Results per page"
             min="1"
             max="100"
-            className="mx-2 rounded-[5px] border-[1px] border-gray-400 px-2 py-2 placeholder-darkGray font-[500]"
+            className="mx-2 rounded-[5px] border-[1px] border-gray-400 px-2 py-2 font-[500] placeholder-darkGray"
           />
           <span className="m:hidden">per page</span>
         </p>
 
-        {/* Sorted by */}
+        {/* Dropdown for sorting products */}
         <p className="xs:hidden">
           Sort By:
           <select
@@ -56,7 +61,11 @@ function LayoutSettingsBar() {
           </select>
         </p>
 
-        <button className="hidden text-lightTextGray m:flex gap-1 items-center text-[.9rem]">
+        {/* Filters button to toggle <ProductFilterSettingsBarMobile/> */}
+        <button
+          onClick={handleMobileMenuDisplay}
+          className="hidden items-center gap-1 text-[.9rem] text-lightTextGray m:flex"
+        >
           <Funnel />
           Filters
         </button>

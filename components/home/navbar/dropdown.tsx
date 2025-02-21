@@ -1,14 +1,20 @@
+/**
+ * Dropdown component displays a list of categories with optional headers
+ * and links associated with each category. It takes an array of links and 
+ * renders them in a responsive dropdown layout.
+ */
+
 import Link from "next/link"
 import Navlink from "./navlink"
 
 export type Links = {
-  headerLink?: { label: string; href: string } // Optional header/category title with link
-  links: { label: string; href: string }[] // Array of links related to the category
+  headerLink?: { label: string; href: string } // Optional category title with link
+  links: { label: string; href: string }[] // List of category links
 }
 
 type DropdownProps = {
-  links: Links[]
-  className?: string
+  links: Links[] // Array of categories with associated links
+  className?: string // Additional CSS classes
 }
 
 function Dropdown({ links, className = "" }: DropdownProps) {
@@ -18,7 +24,7 @@ function Dropdown({ links, className = "" }: DropdownProps) {
     >
       {links.map((category, categoryIndex) => (
         <div key={categoryIndex} className="flex-1">
-          {/* Optional header for the links */}
+          {/* Optional category header */}
           {category.headerLink && (
             <h3 className="orange-hover mb-1 text-[0.9rem] font-[500] text-darkGray">
               <Link href={category.headerLink.href}>
@@ -27,7 +33,7 @@ function Dropdown({ links, className = "" }: DropdownProps) {
             </h3>
           )}
 
-          {/* Links corresponding to the header */}
+          {/* List of links under the category */}
           <ul className="w-auto">
             {category.links.map((link, linkIndex) => (
               <Navlink

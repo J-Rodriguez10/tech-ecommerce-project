@@ -8,6 +8,11 @@ import X from "./svgs/social-media-svgs/x"
 import Youtube from "./svgs/social-media-svgs/youtube"
 import { PAYMENT_METHODS_SVGS } from "@/util/data/payments-data"
 
+/* 
+  Website footer with company info, social media links, 
+  quick navigation, and payment method icons.
+*/
+
 function Footer() {
   return (
     <footer className="h-auto w-screen bg-bgGray">

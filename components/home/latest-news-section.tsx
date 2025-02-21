@@ -2,14 +2,12 @@
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import dynamic from "next/dynamic"
+import Slider from "react-slick"
 
 import SectionHeader from "../section-header"
 import NewsArticleSliderItem from "../slider/slider-items/news-article-slider-item"
 import CustomSliderArrow from "../slider/custom-slider-arrow"
 import { DUMMY_NEWS_DATA } from "@/util/data/dummy-data/news"
-
-const Slider = dynamic(() => import("react-slick"), { ssr: false })
 
 
 function LatestNewsSection() {
