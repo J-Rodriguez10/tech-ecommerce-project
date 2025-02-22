@@ -25,9 +25,7 @@ Containers
   --desktop-width: 1200px;
 }
 
-* {
-  box-sizing: border-box;
-}
+
 
 /* Generic container that sticks to the sides as the screen size increases */
 .cont {
@@ -36,28 +34,28 @@ Containers
 
   /* Extra Small Screens (xs): 0px -> 575 */
   @media (min-width: 0px) {
-    max-width: 100% !important; /* Adjust the max-width */
+    max-width: 100%; /* Adjust the max-width */
     padding: 0 1rem;
   }
 
   /* Small Screens (s): 575px -> 770px */
   @media (min-width: 575px) {
-    max-width: 530px !important; /* Adjust the max-width */
+    max-width: 530px; /* Adjust the max-width */
   }
 
   /* Medium screens (m): 770px -> 990px */
   @media (min-width: 770px) {
-    max-width: 690px !important; /* Adjust the max-width */
+    max-width: 690px; /* Adjust the max-width */
   }
 
   /* Large screens (l): 990px -> 1200px */
   @media (min-width: 990px) {
-    max-width: 950px !important; /* Adjust the max-width  - prev 930px*/
+    max-width: 950px; /* Adjust the max-width  - prev 930px*/
   }
 
   /* Extra large screens (xl): 1200px+ */
   @media (min-width: 1200px) {
-    max-width: 100% !important;
+    max-width: 100%;
     padding: 0 3.5rem;
   }
 }
