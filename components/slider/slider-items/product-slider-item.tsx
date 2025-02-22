@@ -3,7 +3,6 @@
  * It includes a product image (with hover effect), product description, rating, and interactive buttons like "Add to wishlist", "Compare", and "Quick View".
  */
 
-
 import Image from "next/image"
 
 import Navlink from "@/components/home/navbar/navlink"
@@ -11,6 +10,7 @@ import Rating from "@/components/rating"
 import Compare from "@/components/svgs/compare"
 import Heart from "@/components/svgs/heart"
 import MagnifyingGlass from "@/components/svgs/magnifying-glass"
+import Link from "next/link"
 
 interface ProductItemSliderProps {
   slideHeight?: string // Represents the height for the individual slide components (Slick plugin cannot dynamically set height). Default is set to "h-[370px] l:h-[320px] s:min-h-[600px]" which works for basic setups.
@@ -95,9 +95,12 @@ function ProductItemSlider({
             </p>
 
             {/* Select Options button */}
-            <div className="absolute inset-x-0 translate-y-[10px] text-[1.1rem] font-[500] text-darkOrange opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-[-1px] group-hover:opacity-100">
+            <Link
+              href={`/shop/productId`}
+              className="absolute inset-x-0 translate-y-[10px] text-[1.1rem] font-[500] text-darkOrange opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-[-1px] group-hover:opacity-100"
+            >
               + Select Options
-            </div>
+            </Link>
           </div>
 
           {/* Product price */}

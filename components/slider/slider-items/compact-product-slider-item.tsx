@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 import Rating from "@/components/rating"
 
@@ -11,7 +12,7 @@ function CompactProductItemSlider({
   slideHeight = "h-[125px]"
 }: CompactProductItemSliderProps) {
   return (
-    <div className={`${slideHeight} `}>
+    <Link href={`/shop/productId`} className={`${slideHeight} group`}>
       <div className="relative flex min-h-full gap-[.8rem] px-4 py-4 text-darkGray">
         {/* Left section: Displaying the product image */}
         <div className="relative flex max-w-[95px] flex-[1] items-center justify-center">
@@ -33,7 +34,7 @@ function CompactProductItemSlider({
           <Rating rating={3.5} />
 
           {/* Product name and the option to select options (if applicable) */}
-          <p className="orange-hover text-[1.1rem] font-[400]">
+          <p className="text-[1.1rem] font-[400] default-transition group-hover:text-darkOrange">
             Oneplus 6t Mirror
           </p>
 
@@ -41,7 +42,7 @@ function CompactProductItemSlider({
           <p className="text-[0.9rem] font-[500]">$150.00</p>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
