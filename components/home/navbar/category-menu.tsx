@@ -48,7 +48,7 @@ function CategoryMenu({ isDisplayed }: CategoryMenuProps) {
         {/* Categories with dropdowns */}
         <div
           onMouseEnter={() => handleMouseEnter("Cameras & Videos")}
-          onMouseLeave={() => handleMouseLeave("Cameras & Videos")}
+          onMouseLeave={() => handleMouseLeave("")}
         >
           <Navlink
             href="/shop"
@@ -61,7 +61,7 @@ function CategoryMenu({ isDisplayed }: CategoryMenuProps) {
         </div>
         <div
           onMouseEnter={() => handleMouseEnter("Computers & Laptops")}
-          onMouseLeave={() => handleMouseLeave("Computers & Laptops")}
+          onMouseLeave={() => handleMouseLeave("")}
         >
           <Navlink
             href="/shop"

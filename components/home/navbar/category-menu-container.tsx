@@ -35,7 +35,7 @@ function CategoryMenuContainer({
       </button>
 
       {/* Desktop category menu */}
-      <div className="m:hidden">
+      <div className="m:hidden ">
         <CategoryMenu isDisplayed={isCategoryMenuDisplayed} />
       </div>
     </aside>
