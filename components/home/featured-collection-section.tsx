@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Slider from "react-slick"
@@ -7,9 +8,33 @@ import Slider from "react-slick"
 import CustomSliderArrow from "../slider/custom-slider-arrow"
 import ProductItemSlider from "../slider/slider-items/product-slider-item"
 import SectionHeader from "../section-header"
-
+import { Product } from "@/util/interfaces/product"
+import ProtoProductItemSlider from "../slider/slider-items/proto-product-slider-item"
 
 function FeaturedCollectionSection() {
+  const [products, setProducts] = useState<Product[]>([])
+
+  useEffect(() => {
+    async function fetchDeals() {
+      try {
+        const response = await fetch(
+          `http://localhost:4000/api/products?tags=featured&limit=10`
+        )
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch products")
+        }
+
+        const data = await response.json()
+        setProducts(data.products || [])
+      } catch (error) {
+        console.error("Failed to fetch hot deals:", error)
+      }
+    }
+
+    fetchDeals()
+  }, [])
+
   const sliderSettings = {
     dots: false,
     infinite: true,
@@ -58,13 +83,17 @@ function FeaturedCollectionSection() {
       {/* Slider component */}
       <Slider className="w-full" {...sliderSettings}>
         {/* Render individual product sliders */}
-        <ProductItemSlider slideHeight={sliderHeightStyles} />
-        <ProductItemSlider slideHeight={sliderHeightStyles} />
-        <ProductItemSlider slideHeight={sliderHeightStyles} />
-        <ProductItemSlider slideHeight={sliderHeightStyles} />
-        <ProductItemSlider slideHeight={sliderHeightStyles} />
-        <ProductItemSlider slideHeight={sliderHeightStyles} />
-        <ProductItemSlider slideHeight={sliderHeightStyles} />
+        {products.length > 0 ? (
+          products.map(product => (
+            <ProtoProductItemSlider
+              slideHeight={sliderHeightStyles}
+              key={product._id}
+              product={product}
+            />
+          ))
+        ) : (
+          <p>Loading deals...</p>
+        )}
       </Slider>
     </section>
   )

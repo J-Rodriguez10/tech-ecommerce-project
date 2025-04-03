@@ -1,7 +1,7 @@
 import * as Accordion from "@radix-ui/react-accordion"
 import AccordionToggleHeader from "./custom-accordion-menu-components/accordion-header"
 
-import CategoriesDropdown from "./custom-accordion-menu-components/dropdowns/categories-dropdown"
+import TagsDropdown from "./custom-accordion-menu-components/dropdowns/tags-dropdown"
 import AvailabilityDropdown from "./custom-accordion-menu-components/dropdowns/availability-dropdown"
 import PriceDropdown from "./custom-accordion-menu-components/dropdowns/price-dropdown"
 import BrandDropdown from "./custom-accordion-menu-components/dropdowns/brand-dropdown"
@@ -17,7 +17,7 @@ function ProductFilterSettingsBar({
   displaysAd?: boolean
 }) {
   return (
-    <aside className={`flex-[2.5] ${className}`}>
+    <aside className={`flex-[2.5] pb-[4rem] ${className}`}>
       <Accordion.Root
         className="flex flex-col gap-3"
         type="multiple"
@@ -26,10 +26,10 @@ function ProductFilterSettingsBar({
         {/* Item 1 */}
         <Accordion.Item value="item-1">
           {/* Toggles dropdown content*/}
-          <AccordionToggleHeader label="Categories" />
+          <AccordionToggleHeader label="Tags" />
           {/* Dropdown content  */}
           <Accordion.Content>
-            <CategoriesDropdown />
+            <TagsDropdown />
           </Accordion.Content>
         </Accordion.Item>
         {/* End of Item */}

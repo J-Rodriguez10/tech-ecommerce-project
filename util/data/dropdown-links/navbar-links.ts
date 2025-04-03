@@ -1,6 +1,8 @@
 import { Links } from "@/components/home/navbar/dropdown"
 import { AccordionItemProps } from "@/components/accordion-menu"
 
+
+// The shop links are structured for the <ShopDropdown/> component
 export const SHOP_LINKS: Links[] = [
   {
     headerLink: { label: "Smartphones", href: "/shop" },
@@ -40,7 +42,7 @@ export const SHOP_LINKS: Links[] = [
   }
 ]
 
-// Links Data structured to fit AccordionMenu component
+// Links Data structured to fit the <AccordionMenu/> component for the mobile menu versions of the links.
 export const ACCORDION_NAVBAR_LINKS: AccordionItemProps[] = [
   { label: "Home", href: "/" },
   {

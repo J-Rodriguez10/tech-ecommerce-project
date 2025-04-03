@@ -1,45 +1,50 @@
 import { AccordionItemProps } from "@/components/accordion-menu"
 import { Links } from "@/components/home/navbar/dropdown"
 
+// Following the structure to make the <Dropdown/> component work.
 export const CAMERAS_AND_VIDEOS_LINKS: Links[] = [
   {
-    headerLink: { label: "Airpods", href: "/airpods" },
+    headerLink: { label: "DSLR & Mirrorless", href: "/cameras-videos/dslr" },
     links: [
-      { label: "Headphones", href: "/airpods/headphones" },
-      { label: "Mini Speaker", href: "/airpods/mini-speaker" },
-      { label: "Wireless Charging", href: "/airpods/wireless-charging" },
-      { label: "Airpod Cases", href: "/airpods/cases" }
+      { label: "Canon", href: "/cameras-videos/dslr/canon" },
+      { label: "Nikon", href: "/cameras-videos/dslr/nikon" },
+      { label: "Sony", href: "/cameras-videos/dslr/sony" },
+      { label: "Lenses", href: "/cameras-videos/dslr/lenses" }
     ]
   },
   {
-    headerLink: { label: "Headphones", href: "/cameras-videos" },
+    headerLink: { label: "Action Cameras", href: "/cameras-videos/action" },
     links: [
-      { label: "Mini Speakers", href: "/cameras-videos/cameras" },
-      { label: "Mobiles & Tablets", href: "/cameras-videos/headphones" },
-      { label: "Portable Speakers", href: "/cameras-videos/mini-speaker" },
-      { label: "Music & Gaming", href: "/cameras-videos/action-cameras" }
+      { label: "GoPro", href: "/cameras-videos/action/gopro" },
+      { label: "DJI", href: "/cameras-videos/action/dji" },
+      { label: "Waterproof", href: "/cameras-videos/action/waterproof" },
+      { label: "Accessories", href: "/cameras-videos/action/accessories" }
     ]
   },
   {
-    headerLink: { label: "iPads", href: "/ipads" },
+    headerLink: { label: "Camcorders", href: "/cameras-videos/camcorders" },
     links: [
-      { label: "Accessories", href: "/ipads/accessories" },
-      { label: "Cameras", href: "/ipads/cameras" },
-      { label: "Headphones", href: "/ipads/headphones" },
-      { label: "Mini Speaker", href: "/ipads/mini-speaker" }
+      {
+        label: "Professional",
+        href: "/cameras-videos/camcorders/professional"
+      },
+      { label: "Handheld", href: "/cameras-videos/camcorders/handheld" },
+      { label: "4K Video", href: "/cameras-videos/camcorders/4k" },
+      { label: "Microphones", href: "/cameras-videos/camcorders/microphones" }
     ]
   },
   {
-    headerLink: { label: "Laptops", href: "/laptops" },
+    headerLink: { label: "Drones", href: "/cameras-videos/drones" },
     links: [
-      { label: "Smart Watches", href: "/laptops/smart-watches" },
-      { label: "Smart Television", href: "/laptops/smart-television" },
-      { label: "Smart Phones", href: "/laptops/smart-phones" },
-      { label: "Computers", href: "/laptops/computers" }
+      { label: "DJI", href: "/cameras-videos/drones/dji" },
+      { label: "FPV Racing", href: "/cameras-videos/drones/fpv" },
+      { label: "Gimbals", href: "/cameras-videos/drones/gimbals" },
+      { label: "Accessories", href: "/cameras-videos/drones/accessories" }
     ]
   }
 ]
 
+// Following the structure to make the <Dropdown/> component work.
 export const COMPUTERS_AND_LAPTOP_LINKS: Links[] = [
   {
     headerLink: { label: "Desktop Computers", href: "/desktop-computers" },
@@ -55,7 +60,7 @@ export const COMPUTERS_AND_LAPTOP_LINKS: Links[] = [
     links: [
       { label: "Gaming Laptops", href: "/laptops/gaming" },
       { label: "Ultrabooks", href: "/laptops/ultrabooks" },
-      { label: "MacBook M2", href: "/laptops/macbook-m2" },
+      { label: "MacBook", href: "/laptops/macbook" },
       { label: "2-in-1 Laptops", href: "/laptops/2-in-1" }
     ]
   },
@@ -79,130 +84,139 @@ export const COMPUTERS_AND_LAPTOP_LINKS: Links[] = [
   }
 ]
 
-// Category Menu Links Data structured to fit AccordionMenu component
+// Category Menu Links Data structured to fit AccordionMenu component for the mobile version
 export const ACCORDION_CATEGORY_LINKS: AccordionItemProps[] = [
   {
     label: "Cameras & Videos",
-    href: "/",
+    href: "/cameras-videos",
     links: [
       {
-        label: "Airpods",
-        href: "/",
+        label: "DSLR & Mirrorless",
+        href: "/cameras-videos/dslr",
         links: [
-          { label: "Headphones", href: "/" },
-          { label: "Mini Speaker", href: "/" },
-          { label: "Wireless Charging", href: "/" },
-          { label: "Airpod Cases", href: "/" }
+          { label: "Canon", href: "/cameras-videos/dslr/canon" },
+          { label: "Nikon", href: "/cameras-videos/dslr/nikon" },
+          { label: "Sony", href: "/cameras-videos/dslr/sony" },
+          { label: "Lenses", href: "/cameras-videos/dslr/lenses" }
         ]
       },
       {
-        label: "Headphones",
-        href: "/",
+        label: "Action Cameras",
+        href: "/cameras-videos/action",
         links: [
-          { label: "Mini Speakers", href: "/" },
-          { label: "Mobiles & Tablets", href: "/" },
-          { label: "Portable Speakers", href: "/" },
-          { label: "Music & Gaming", href: "/" }
+          { label: "GoPro", href: "/cameras-videos/action/gopro" },
+          { label: "DJI", href: "/cameras-videos/action/dji" },
+          { label: "Waterproof", href: "/cameras-videos/action/waterproof" },
+          { label: "Accessories", href: "/cameras-videos/action/accessories" }
         ]
       },
       {
-        label: "iPads",
-        href: "/",
+        label: "Camcorders",
+        href: "/cameras-videos/camcorders",
         links: [
-          { label: "Accessories", href: "/" },
-          { label: "Cameras", href: "/" },
-          { label: "Headphones", href: "/" },
-          { label: "Mini Speaker", href: "/" }
+          {
+            label: "Professional",
+            href: "/cameras-videos/camcorders/professional"
+          },
+          { label: "Handheld", href: "/cameras-videos/camcorders/handheld" },
+          { label: "4K Video", href: "/cameras-videos/camcorders/4k" },
+          {
+            label: "Microphones",
+            href: "/cameras-videos/camcorders/microphones"
+          }
         ]
       },
       {
-        label: "Laptops",
-        href: "/",
+        label: "Drones",
+        href: "/cameras-videos/drones",
         links: [
-          { label: "Smart Watches", href: "/" },
-          { label: "Smart Television", href: "/" },
-          { label: "Smart Phones", href: "/" },
-          { label: "Computers", href: "/" }
+          { label: "DJI", href: "/cameras-videos/drones/dji" },
+          { label: "FPV Racing", href: "/cameras-videos/drones/fpv" },
+          { label: "Gimbals", href: "/cameras-videos/drones/gimbals" },
+          { label: "Accessories", href: "/cameras-videos/drones/accessories" }
         ]
       }
     ]
   },
   {
-    label: "Computer & Laptop",
-    href: "/",
+    label: "Computers & Laptops",
+    href: "/computers-laptops",
     links: [
       {
         label: "Desktop Computers",
-        href: "/",
+        href: "/desktop-computers",
         links: [
-          { label: "All-in-One Computers", href: "/" },
-          { label: "Gaming Desktops", href: "/" },
-          { label: "Business Desktops", href: "/" },
-          { label: "Office Computers", href: "/" }
+          {
+            label: "All-in-One Computers",
+            href: "/desktop-computers/all-in-one"
+          },
+          { label: "Gaming Desktops", href: "/desktop-computers/gaming" },
+          { label: "Business Desktops", href: "/desktop-computers/business" },
+          { label: "Office Computers", href: "/desktop-computers/office" }
         ]
       },
       {
         label: "Laptops",
-        href: "/",
+        href: "/laptops",
         links: [
-          { label: "Gaming Laptops", href: "/" },
-          { label: "Ultrabooks", href: "/" },
-          { label: "MacBook M2", href: "/" },
-          { label: "2-in-1 Laptops", href: "/" }
+          { label: "Gaming Laptops", href: "/laptops/gaming" },
+          { label: "Ultrabooks", href: "/laptops/ultrabooks" },
+          { label: "MacBook", href: "/laptops/macbook" },
+          { label: "2-in-1 Laptops", href: "/laptops/2-in-1" }
         ]
       },
       {
         label: "Accessories",
-        href: "/",
+        href: "/accessories",
         links: [
-          { label: "Keyboards", href: "/" },
-          { label: "Monitors", href: "/" },
-          { label: "Laptop Bags", href: "/" },
-          { label: "External Drives", href: "/" }
+          { label: "Keyboards", href: "/accessories/keyboards" },
+          { label: "Monitors", href: "/accessories/monitors" },
+          { label: "Laptop Bags", href: "/accessories/laptop-bags" },
+          { label: "External Drives", href: "/accessories/external-drives" }
         ]
       },
       {
         label: "Networking",
-        href: "/",
+        href: "/networking",
         links: [
-          { label: "Routers", href: "/" },
-          { label: "Wi-Fi Adapters", href: "/" },
-          { label: "Ethernet Cables", href: "/" },
-          { label: "Modems", href: "/" }
+          { label: "Routers", href: "/networking/routers" },
+          { label: "Wi-Fi Adapters", href: "/networking/wi-fi-adapters" },
+          { label: "Ethernet Cables", href: "/networking/ethernet-cables" },
+          { label: "Modems", href: "/networking/modems" }
         ]
       }
     ]
   },
   {
     label: "Home Appliances",
-    href: "/"
+    href: "/home-appliances"
   },
   {
-    label: "Mobiles & tablets",
-    href: "/"
+    label: "Mobiles & Tablets",
+    href: "/mobiles-tablets"
   },
   {
-    label: "Smart phones",
-    href: "/"
+    label: "Smartphones",
+    href: "/smartphones"
   },
   {
     label: "Portable Speakers",
-    href: "/"
+    href: "/portable-speakers"
   },
   {
     label: "Music & Gaming",
-    href: "/"
+    href: "/music-gaming"
   },
   {
     label: "Phone Cases",
-    href: "/"
+    href: "/phone-cases"
   },
   {
-    label: "Bluetooth Speaker",
-    href: "/"
+    label: "Bluetooth Speakers",
+    href: "/bluetooth-speakers"
   },
   {
     label: "Contact Us",
-    href: "/"
+    href: "/contact"
   }
 ]

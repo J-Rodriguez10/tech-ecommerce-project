@@ -3,6 +3,7 @@ import { useState } from "react"
 import ProductReviewForm from "./product-reviews-components/product-review-form"
 import ProductReviewsDataMetrics from "./product-reviews-components/product-reviews-data-metrics"
 import ProductReviewsContainer from "./product-reviews-components/product-reviews-container"
+import { Product } from "@/util/interfaces/product"
 
 /*  
   Displays customer reviews for a product, including review metrics,  
@@ -10,7 +11,7 @@ import ProductReviewsContainer from "./product-reviews-components/product-review
   Users can toggle the review form by clicking the "Write a review" button.  
 */
 
-function ProductReviews() {
+function ProductReviews({product}:{product: Product}) {
   const [isFormDisplayed, setIsFormDisplayed] = useState(false)
 
   // Toggles the visibility of the product review form
@@ -32,7 +33,7 @@ function ProductReviews() {
       {isFormDisplayed && <ProductReviewForm />}
 
       {/* Container for displaying individual customer reviews */}
-      <ProductReviewsContainer />
+      <ProductReviewsContainer product={product} />
     </div>
   )
 }

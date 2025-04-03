@@ -1,8 +1,3 @@
-/**
- * CategoryMenu - Displays a list of product categories with optional dropdowns on hover.
- * Visibility is controlled via a state prop.
- */
-
 "use client"
 
 import { useState } from "react"
@@ -17,6 +12,11 @@ import {
 interface CategoryMenuProps {
   isDisplayed: boolean // Determines if the category menu is visible
 }
+
+/**
+ * CategoryMenu - Displays a list of product categories with optional dropdowns on hover.
+ * Visibility is controlled via a state prop.
+ */
 
 function CategoryMenu({ isDisplayed }: CategoryMenuProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)

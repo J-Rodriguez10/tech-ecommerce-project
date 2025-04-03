@@ -5,6 +5,7 @@ import { useState } from "react"
 import Description from "./tabs/product-description"
 import ShippingAndReturnDetails from "./tabs/shipping-&-return-details"
 import ProductReviews from "./tabs/product-reviews"
+import { Product } from "@/util/interfaces/product"
 
 /*  
   Displays product-related information using a tabbed interface.  
@@ -13,14 +14,14 @@ import ProductReviews from "./tabs/product-reviews"
 */
 
 
-function ProductTabsInfo() {
+function ProductTabsInfo({product}: {product: Product}) {
   const [selectedTab, setSelectedTab] = useState<
     "description" | "reviews" | "shipping"
   >("description")
 
   const keyToComponent = {
     description: <Description />,
-    reviews: <ProductReviews />,
+    reviews: <ProductReviews product={product} />,
     shipping: <ShippingAndReturnDetails />
   }
 

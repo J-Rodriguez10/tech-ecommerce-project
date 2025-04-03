@@ -11,6 +11,7 @@ import NavbarFeaturesList from "./navbar-features"
 import CategoryMenuContainer from "./category-menu-container"
 import NavbarCenterLinks from "./navbar-center-links"
 import CartSideMenu from "./cart-side-menu"
+import Link from "next/link"
 
 interface NavbarProps {
   hasCategoryMenu?: boolean // Controls whether the category menu is displayed (not all pages have the category menu part of the Navbar)
@@ -49,12 +50,14 @@ function Navbar({ hasCategoryMenu = true }: NavbarProps) {
       <div className="cont text-lightTextGray">
         <div className="flex h-[112px] items-center justify-between">
           {/* Logo */}
-          <Image
-            width={150}
-            height={18.5}
-            src="https://quickstep007.myshopify.com/cdn/shop/files/logo_74cea665-41e6-4e29-a95a-56ceb67bb81e_150x@2x.png?v=1702468281"
-            alt="Phoone"
-          />
+          <Link href="/">
+            <Image
+              width={150}
+              height={18.5}
+              src="https://quickstep007.myshopify.com/cdn/shop/files/logo_74cea665-41e6-4e29-a95a-56ceb67bb81e_150x@2x.png?v=1702468281"
+              alt="Phoone"
+            />
+          </Link>
 
           {/* Search bar for finding products */}
           <Searchbar />

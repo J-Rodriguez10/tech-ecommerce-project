@@ -1,47 +1,46 @@
+"use client"
+
+import { useDispatch, useSelector } from "react-redux"
+import { RootState, AppDispatch } from "@/redux/store"
+import { setFilters } from "@/redux/slices/filtersSlice"
 import Funnel from "../svgs/shop/funnel"
-import { Layout1, Layout2, Layout3, Layout4 } from "../svgs/shop/layout-svgs"
+import ProductsPerPageInput from "./products-per-page-input"
+import ProductsShowingDisplay from "./products-showing-display"
 
 interface LayoutSettingsBarProps {
-  handleMobileMenuDisplay: () => void // Function responsible for displaying/removing the filters mobile menu. Should be added to the Funnel button.
+  handleMobileMenuDisplay: () => void
 }
 
-function LayoutSettingsBar({ handleMobileMenuDisplay }: LayoutSettingsBarProps) {
-  return (
-    <aside className="flex h-auto items-center justify-between py-3 text-darkGray">
-      {/* Grid layout settings - icons to toggle between different layouts */}
-      <ul className="flex items-center gap-4 text-gray-400">
-        <li className="text-darkGray">
-          <Layout4 />
-        </li>
-        <li>
-          <Layout3 />
-        </li>
-        <li>
-          <Layout2 />
-        </li>
-        <li>
-          <Layout1 />
-        </li>
-      </ul>
+function LayoutSettingsBar({
+  handleMobileMenuDisplay
+}: LayoutSettingsBarProps) {
+  const dispatch = useDispatch<AppDispatch>()
 
+  // Access the current sortBy from Redux state
+  const currentSortBy = useSelector((state: RootState) => state.filters.sortBy)
+
+  // Get totalPages from Redux state (this is updated after fetching products)
+  const totalPages = useSelector((state: RootState) => state.filters.totalPages)
+
+  // Handle change in the dropdown for sorting
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newSortBy = event.target.value
+
+    // Dispatch the action to update the Redux state
+    dispatch(setFilters({ sortBy: newSortBy }))
+
+    // Log the new sortBy value
+    console.log("New sortBy value:", newSortBy)
+  }
+  return (
+    <aside className="flex h-auto items-center justify-end py-3 text-darkGray">
       {/* Product results display settings */}
       <div className="flex items-center gap-6 l:gap-5">
         {/* Displaying number of results */}
-        <p className="m:hidden">Showing 1 - 12 of 15 results</p>
+        <ProductsShowingDisplay totalPages={totalPages} />
 
         {/* Input for number of results per page */}
-        <p className="s:hidden">
-          Show
-          <input
-            type="number"
-            placeholder="12"
-            aria-label="Results per page"
-            min="1"
-            max="100"
-            className="mx-2 rounded-[5px] border-[1px] border-gray-400 px-2 py-2 font-[500] placeholder-darkGray"
-          />
-          <span className="m:hidden">per page</span>
-        </p>
+        <ProductsPerPageInput />
 
         {/* Dropdown for sorting products */}
         <p className="xs:hidden">
@@ -49,15 +48,17 @@ function LayoutSettingsBar({ handleMobileMenuDisplay }: LayoutSettingsBarProps) 
           <select
             aria-label="Sort by"
             className="mx-2 rounded-[5px] border-[1px] border-gray-400 px-2 py-2 font-[500]"
+            name="sortBy"
+            value={currentSortBy} // Bind the value to Redux state
+            onChange={handleSortChange} // Dispatch action on change
           >
-            <option value="featured">Featured</option>
-            <option value="best-selling">Best Selling</option>
-            <option value="alpha-asc">Alphabetically, A-Z</option>
-            <option value="alpha-desc">Alphabetically, Z-A</option>
-            <option value="price-asc">Price, low to high</option>
-            <option value="price-desc">Price, high to low</option>
-            <option value="date-new">Date, new to old</option>
-            <option value="date-old">Date, old to new</option>
+            <option value="">Select</option>
+            <option value="alpha-A-Z">Alphabetically, A-Z</option>
+            <option value="alpha-Z-A">Alphabetically, Z-A</option>
+            <option value="price-low-high">Price, low to high</option>
+            <option value="price-high-low">Price, high to low</option>
+            <option value="date-new-old">Date, new to old</option>
+            <option value="date-old-new">Date, old to new</option>
           </select>
         </p>
 

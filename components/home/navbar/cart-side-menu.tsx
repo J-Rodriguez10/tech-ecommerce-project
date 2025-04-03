@@ -1,21 +1,24 @@
-/**
- * This component represents the cart side menu that appears when a user opens the cart.
- * It includes a list of cart items, the total price, and action buttons like "Proceed to Checkout" and "View Cart".
- * The backdrop closes the menu when clicked, and clicking inside the menu does not close it due to event propagation being stopped.
- */
+import { useSelector } from "react-redux";
+import Link from "next/link";
+import { RootState } from "@/redux/store"; // Import RootState for type checking
 
-import Link from "next/link"
-
-import XSvg from "@/components/svgs/x"
-import CartItem from "./cart-item"
-import Button from "@/components/button"
+import Button from "@/components/button";
+import XSvg from "@/components/svgs/x";
+import { CartItem as CartItemInterface } from "@/util/interfaces/user";
+import CartItem from "./cart-item";
 
 interface CartSideMenuProps {
   // Function to toggle the cart menu display
-  toggleCartMenuDisplay: () => void
+  toggleCartMenuDisplay: () => void;
 }
 
 function CartSideMenu({ toggleCartMenuDisplay }: CartSideMenuProps) {
+  // Access the cart from the Redux store
+  const cart: CartItemInterface[] | undefined = useSelector((state: RootState) => state.user.user?.cart);
+
+  // Calculate total price
+  const totalPrice = cart?.reduce((total, item) => total + item.price * item.quantity, 0) || 0;
+
   return (
     // Backdrop
     <div
@@ -37,19 +40,25 @@ function CartSideMenu({ toggleCartMenuDisplay }: CartSideMenuProps) {
 
         {/* Items in Cart */}
         <div className="mt-5 h-full">
-          {/* <p className="text-[1.15rem]">Your Cart Is Currently Empty.</p> */}
-
-          <ul className="max-h-[70%] overflow-scroll">
-            <CartItem />
-            <CartItem />
-            <CartItem />
-          </ul>
+          {/* Display cart items */}
+          {!cart || cart && cart.length === 0 ? (
+            <p className="text-[1.15rem]">Your Cart Is Currently Empty!</p>
+          ) : (
+            <ul className="max-h-[70%] overflow-scroll">
+              {/* Optional chaining used here to prevent issues when cart is undefined */}
+              {cart?.map((item) => (
+                <CartItem
+                  key={item.productId}
+                  {...item}
+                />
+              ))}
+            </ul>
+          )}
 
           {/* Total */}
           <div className="mt-[3rem] flex items-center justify-between border-y-[1px] border-[#dfdfdf] py-4 text-[1.05rem] font-[500]">
             <p>Total:</p>
-
-            <p>$1,299.00</p>
+            <p>${totalPrice.toFixed(2)}</p>
           </div>
 
           {/* Action Buttons */}
@@ -64,7 +73,7 @@ function CartSideMenu({ toggleCartMenuDisplay }: CartSideMenuProps) {
         </div>
       </aside>
     </div>
-  )
+  );
 }
 
-export default CartSideMenu
+export default CartSideMenu;

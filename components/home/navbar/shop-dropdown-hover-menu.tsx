@@ -1,7 +1,3 @@
-/**
- * This component renders a dropdown hover menu for the "Shop" section.
- * It displays categories and their respective links, along with a product slider showcasing items.
- */
 "use client"
 
 import Link from "next/link"
@@ -10,7 +6,7 @@ import CustomSliderArrow from "../../slider/custom-slider-arrow"
 import Slider from "react-slick"
 import ProductItemSlider from "../../slider/slider-items/product-slider-item"
 
-// Define the type for the links
+
 export type Links = {
   headerLink?: { label: string; href: string } // Optional header/category title with a link
   links: { label: string; href: string }[] // Array of links related to the category
@@ -20,12 +16,17 @@ type DropdownProps = {
   links: Links[] // List of categories and their respective links
 }
 
+/**
+ * This component renders a dropdown hover menu for the "Shop" section.
+ * It displays categories and their respective links, along with a product slider showcasing items.
+ */
+
 function ShopDropdownHoverMenu({ links }: DropdownProps) {
   // Slider settings for react-slick
   const settings = {
     dots: false, // Disable pagination dots
-    infinite: true, // Enable infinite scrolling
-    speed: 500, // Transition speed in ms
+    infinite: true, // Infinite scrolling
+    speed: 500, // Speed in ms
     slidesToShow: 1, 
     slidesToScroll: 1, 
     nextArrow: <CustomSliderArrow direction="right" />, // Custom next arrow
@@ -76,6 +77,7 @@ function ShopDropdownHoverMenu({ links }: DropdownProps) {
         {/* Slider section for showcasing items */}
         <div className="flex flex-1 items-center justify-center">
           <Slider className="max-w-[250px]" {...settings}>
+            
             {/* Render multiple ProductItemSlider components */}
             <ProductItemSlider hoverButtons={false} slideHeight="h-[300px]" />
             <ProductItemSlider hoverButtons={false} slideHeight="h-[300px]" />

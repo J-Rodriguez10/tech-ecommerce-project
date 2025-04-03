@@ -7,16 +7,40 @@
 
 "use client"
 
+import { useEffect, useState } from "react"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Slider from "react-slick"
 
-import ProductItemSlider from "@/components/slider/slider-items/product-slider-item"
 import CustomSliderArrow from "../slider/custom-slider-arrow"
 import Button from "../button"
 import Countdown from "./countdown"
+import ProtoProductItemSlider from "../slider/slider-items/proto-product-slider-item"
+import { Product } from "@/util/interfaces/product"
 
 function TodaysDealsSection() {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    async function fetchDeals() {
+      try {
+        const response = await fetch(`http://localhost:4000/api/products?tags=hotDeal&limit=10`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch products")
+        }
+
+        const data = await response.json();
+        setProducts(data.products || []);
+
+      } catch (error) {
+        console.error("Failed to fetch hot deals:", error);
+      }
+    }
+
+    fetchDeals();
+  }, []);
+
   // Set the target countdown date to one year from today
   const targetDate = new Date()
   targetDate.setFullYear(targetDate.getFullYear() + 1)
@@ -71,10 +95,13 @@ function TodaysDealsSection() {
 
         {/* Product slider displaying deal items */}
         <Slider className="max-w-[73%] m:max-w-full" {...sliderSettings}>
-          <ProductItemSlider />
-          <ProductItemSlider />
-          <ProductItemSlider />
-          <ProductItemSlider />
+        {products.length > 0 ? (
+            products.map((product) => (
+              <ProtoProductItemSlider key={product._id} product={product} />
+            ))
+          ) : (
+            <p>Loading deals...</p>
+          )}
         </Slider>
       </div>
     </section>

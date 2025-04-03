@@ -1,19 +1,38 @@
+"use client"
+
+import { useSelector, useDispatch } from "react-redux"
+import { RootState, AppDispatch } from "@/redux/store"
+import { setFilters } from "@/redux/slices/filtersSlice"
+
 function AvailabilityDropdown() {
-  const links = ["In Stock (14)", "Out of stock (12)"]
+  const dispatch = useDispatch<AppDispatch>()
+  const filters = useSelector((state: RootState) => state.filters); // Get entire filters state
+
+  console.log("Filters state - changed inStock:", filters.inStock); // Log the entire filters object
+
+  const options = [
+    { label: "In Stock", value: true },
+    { label: "Out of Stock", value: false }
+  ]
 
   return (
     <div className="">
-      <ul className="">
-        {links.map(link => (
-          <li key={link} className="flex items-center my-4 gap-2 ">
+      <ul>
+        {options.map(option => (
+          <li key={option.label} className="my-4 flex items-center gap-2">
             <input
-              type="checkbox"
-              id={link}
-              className="h-4 w-4 rounded border-gray-300 text-blue-600 checked:border-blue-600 !checked:bg-red-600 focus:ring-blue-500"
+              type="radio"
+              name="availability" // Same name ensures only one can be selected
+              id={option.label}
+              checked={filters.inStock === option.value}
+              onChange={() => dispatch(setFilters({ inStock: option.value }))}
+              className="h-4 w-4 text-blue-600 focus:ring-blue-500"
             />
-
-            <label htmlFor={link} className="cursor-pointer text-darkGray">
-              {link}
+            <label
+              htmlFor={option.label}
+              className="cursor-pointer text-darkGray"
+            >
+              {option.label}
             </label>
           </li>
         ))}
