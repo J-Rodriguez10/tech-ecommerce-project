@@ -9,8 +9,9 @@ import SignUpForm from "./sign-up-form"
 import Button from "../button"
 import { useState } from "react"
 import Link from "next/link"
+import OrderList from "./order-list"
 
-function AccountForms() {
+function AccountContent() {
   const dispatch = useDispatch()
 
   // Accessing the user from the state with correct typing using UserState
@@ -40,21 +41,28 @@ function AccountForms() {
       {isAuthenticated ? (
         // If the user is logged in, display the user profile with a logout button and shop link
         <div className="flex flex-col items-center">
-          <h2 className="text-[2rem] font-semibold mb-4">
-            Welcome back, {user?.firstName} {user?.lastName}!
+          <h2 className="mb-4 text-[2rem] font-semibold">
+            Welcome, {user?.firstName} {user?.lastName}!
           </h2>
-          <p className="text-center text-gray-600 mb-8">
-            We&apos;re glad to see you again! Feel free to browse our latest
-            products.
+          <p className="mb-8 text-center text-gray-600">
+            Feel free to browse our latest products.
           </p>
-          <div className="flex gap-4">
+          <div className="mb-8 flex flex-wrap gap-4">
             <Link href="/shop">
               <Button>Go to Shop</Button>
             </Link>
+
+            <Link href="/cart">
+              <Button>Visit Cart</Button>
+            </Link>
+
             <Button onClick={handleLogout} variant="red">
               Logout
             </Button>
           </div>
+
+          {/* Display orders list */}
+          <OrderList />
         </div>
       ) : (
         // If the user is not logged in, toggle between login and sign-up forms
@@ -70,4 +78,4 @@ function AccountForms() {
   )
 }
 
-export default AccountForms
+export default AccountContent

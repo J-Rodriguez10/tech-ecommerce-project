@@ -38,7 +38,28 @@ export function buildQueryString(filters: Filters) {
   return `?${queryParams.toString()}`
 }
 
-// Fetch filtered products helper function
+
+
+/**
+ * Fetch filtered products helper function.
+ *
+ * Makes a GET request to the backend `/api/products` endpoint, applying
+ * all of the provided filters (search term, tags, stock status, price range,
+ * pagination, etc.) as query parameters.
+ *
+ * @param filters - Complete filter state object containing:
+ *   - name: search term
+ *   - tags: array of tag strings
+ *   - inStock: boolean for stock availability
+ *   - priceRange: { min: number; max: number }
+ *   - color, size, brand: arrays of strings
+ *   - sortBy: sort order string
+ *   - productsDisplayed: number of items per page
+ *   - currentPage: page number to fetch
+ *   - totalPages: (ignored on request, used for response handling)
+ * @param setProducts - Callback to update the component's product list state
+ * @param setTotalPages - Callback to update the component's pagination total pages
+ */
 export async function fetchFilteredProducts(
   filters: Filters,
   setProducts: (products: Product[]) => void,
@@ -66,6 +87,8 @@ export async function fetchFilteredProducts(
     console.error("Error fetching filtered products:", error)
   }
 }
+
+
 
 // Fetch a single product by ID
 export async function fetchProductById(

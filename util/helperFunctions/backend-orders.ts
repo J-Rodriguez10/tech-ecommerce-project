@@ -1,0 +1,26 @@
+import axios from 'axios';
+
+// API call to get orders
+export const getUserOrders = async (token: string) => {
+  try {
+    // Log the token and the request being made
+    console.log('Fetching orders with token:', token);
+
+    // Make the GET request to fetch orders
+    const response = await axios.get('http://localhost:4000/api/orders', {
+      headers: {
+        Authorization: `Bearer ${token}`,  // Include the JWT token for authentication
+      },
+    });
+
+    // Log the successful response
+    console.log('Orders fetched successfully:', response.data.orders);
+
+    // Assuming the data returned contains the orders
+    return response.data.orders;
+  } catch (error) {
+    // Log any errors during the request
+    console.error('Error fetching orders:', error);
+    throw error;
+  }
+};

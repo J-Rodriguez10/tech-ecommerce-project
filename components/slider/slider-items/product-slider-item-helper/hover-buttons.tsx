@@ -1,13 +1,12 @@
-"use client";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux"; // Use useSelector to access global state
 import Heart from "@/components/svgs/heart";
 import Compare from "@/components/svgs/compare";
 import MagnifyingGlass from "@/components/svgs/magnifying-glass";
 import Navlink from "@/components/home/navbar/navlink";
-import { RootState } from "@/redux/store"; // Import RootState for type checking
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
+import { addToWishlist, deleteFromWishlist } from "@/redux/slices/userSlice"; // Import actions for wishlist
 
 interface ButtonLabelProps {
   label: string;
@@ -23,52 +22,60 @@ function ButtonLabel({ label }: ButtonLabelProps) {
 }
 
 interface HoverButtonsProps {
-  onAddToWishlist: () => void;
-  onAddToCart: () => void;
+  productId: string;
+  price: number;
+  onAddToCart: (productId: string, quantity: number, price: number) => void;
   onQuickView: () => void;
 }
 
 function HoverButtons({
-  onAddToWishlist,
+  productId,
+  price,
   onAddToCart,
-  onQuickView
+  onQuickView,
 }: HoverButtonsProps) {
   const router = useRouter();
-  
-  // State to manage dynamic button labels
+  const dispatch = useDispatch<AppDispatch>();
+
   const [wishlistLabel, setWishlistLabel] = useState("Add to wishlist");
   const [cartLabel, setCartLabel] = useState("Add to Cart");
   const [quickViewLabel, setQuickViewLabel] = useState("Quick View");
 
-  // Access the isAuthenticated state directly from Redux
   const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
+  const wishlist = useSelector((state: RootState) => state.user.user?.wishlist); // Get the wishlist from Redux
+
+  // Check if the product is already in the wishlist directly during rendering
+  const isFilled = wishlist?.some(item => item.productId === productId);
 
   const hoverButtonsStyle =
     "black-hover flex min-h-[40px] min-w-[40px] h-[30%] w-[30%] items-center justify-center rounded-[50%] bg-darkOrange text-white";
 
-  // Handle Add to Cart with authentication check
   const handleAddToCartClick = () => {
     if (!isAuthenticated) {
       router.push("/account"); // Redirect to login if not authenticated
     } else {
-      onAddToCart(); // Add to cart if authenticated
+      onAddToCart(productId, 1, price); // Assuming quantity is 1
       setCartLabel("Added to Cart!"); // Change label to "Added to Cart!"
       setTimeout(() => setCartLabel("Add to Cart"), 3000); // Revert back after 3 seconds
     }
   };
 
-  // Handle Add to Wishlist with authentication check
   const handleAddToWishlistClick = () => {
     if (!isAuthenticated) {
       router.push("/account"); // Redirect to login if not authenticated
     } else {
-      onAddToWishlist(); // Add to wishlist if authenticated
-      setWishlistLabel("Added to Wishlist!"); // Change label to "Added to Wishlist!"
-      setTimeout(() => setWishlistLabel("Add to wishlist"), 3000); // Revert back after 3 seconds
+      if (isFilled) {
+        // If the product is in the wishlist, remove it
+        dispatch(deleteFromWishlist(productId));
+        setWishlistLabel("Add to wishlist");
+      } else {
+        // If the product is not in the wishlist, add it
+        dispatch(addToWishlist(productId));
+        setWishlistLabel("Remove from Wishlist!");
+      }
     }
   };
 
-  // Handle Quick View with authentication check
   const handleQuickViewClick = () => {
     if (!isAuthenticated) {
       router.push("/account"); // Redirect to login if not authenticated
@@ -86,7 +93,7 @@ function HoverButtons({
         hoverContentInteractable={false}
         onClick={handleAddToWishlistClick}
       >
-        <Heart />
+        <Heart isFilled={isFilled} /> {/* Heart dynamically filled based on wishlist state */}
       </Navlink>
       <Navlink
         className={hoverButtonsStyle}
@@ -99,7 +106,7 @@ function HoverButtons({
       </Navlink>
       <Navlink
         className={hoverButtonsStyle}
-        href="#"
+        href={`shop/${productId}`}
         hoverContent={<ButtonLabel label={quickViewLabel} />}
         hoverContentDirection="left"
         hoverContentInteractable={false}

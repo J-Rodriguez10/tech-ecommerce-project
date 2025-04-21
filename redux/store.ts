@@ -1,8 +1,8 @@
+// store.ts or wherever you define your store
 import { configureStore } from "@reduxjs/toolkit";
 import filtersReducer from "./slices/filtersSlice";
-import userReducer from "./slices/userSlice";  // Import user reducer
+import userReducer from "./slices/userSlice"; // Import user reducer
 
-// Setting up the store with multiple reducers
 export const store = configureStore({
   reducer: {
     filters: filtersReducer,

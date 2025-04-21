@@ -12,7 +12,7 @@ type NavlinkProps = {
   hoverContentDirection?: "down" | "right" | "left"; // Dropdown direction (default: down)
   hasCaret?: boolean; // Shows a caret icon if true
   hoverContentInteractable?: boolean; // Allows interaction with dropdown if true
-  onClick?: () => void; // Optional onClick handler for custom behavior
+  onClick?: (e: React.MouseEvent) => void; // Accept the MouseEvent here
 };
 
 function Navlink({
@@ -34,9 +34,10 @@ function Navlink({
     left: "right-full top-0 mr-1 translate-y-[4px]"
   };
 
-  const handleClick = () => {
+  // Handle the click and pass the event
+  const handleClick = (e: React.MouseEvent) => {
     if (onClick) {
-      onClick(); // Trigger onClick if provided
+      onClick(e); // Trigger onClick if provided, passing the MouseEvent
     }
   };
 

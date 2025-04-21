@@ -1,6 +1,6 @@
 import Footer from "@/components/footer"
 import Navbar from "@/components/home/navbar/navbar"
-import AccountForms from "@/components/login/account-forms"
+import AccountContent from "@/components/login/account-content"
 import PageHeader from "@/components/page-header"
 
 function AccountPage() {
@@ -9,7 +9,7 @@ function AccountPage() {
       <Navbar hasCategoryMenu={false} />
       <PageHeader route="Account" />
       <main className="stick-cont">
-        <AccountForms />
+        <AccountContent />
       </main>
       <Footer />
     </>

@@ -1,19 +1,17 @@
-// ProtoProductItemSlider.tsx
-
-import React from "react";
-import Image from "next/image";
-import { Product } from "@/util/interfaces/product";
-
-import Rating from "@/components/rating";
-import { useDispatch } from "react-redux";
-import { addItemToCart } from "@/redux/helpers/cart-helpers"; // Assuming you have an addItemToCart helper
-import HoverButtons from "./product-slider-item-helper/hover-buttons";
-// import Link from "next/link";
+import React from "react"
+import Image from "next/image"
+import { Product } from "@/util/interfaces/product"
+import Rating from "@/components/rating"
+import HoverButtons from "./product-slider-item-helper/hover-buttons"
+import { useDispatch } from "react-redux"
+import { addToCart} from "@/redux/slices/userSlice"
+import { AppDispatch } from "@/redux/store"
+import Link from "next/link"
 
 interface ProductItemSliderProps {
-  slideHeight?: string;
-  hoverButtons?: boolean;
-  product: Product;
+  slideHeight?: string
+  hoverButtons?: boolean
+  product: Product
 }
 
 function ProtoProductItemSlider({
@@ -21,33 +19,32 @@ function ProtoProductItemSlider({
   hoverButtons = true,
   product
 }: ProductItemSliderProps) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>() // Correctly type dispatch
 
-  // Handlers for the hover buttons
-  const handleAddToWishlist = () => {
-    // Implement wishlist logic, for now we'll log it
-    console.log("Adding to wishlist", product._id);
-    // dispatch(addToWishlist(product));
-  };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (productId: string) => {
     // Implement add to cart logic
-    console.log("Adding to cart", product._id);
-    addItemToCart(dispatch, product._id, 1, product.price); // Assuming quantity 1 for now
-  };
+    dispatch(addToCart({
+      productId,
+      actionType: "INCREMENT"
+    }))
+  }
 
   const handleQuickView = () => {
     // Implement quick view logic
-    console.log("Viewing quick view of product", product._id);
-  };
+    console.log("Viewing quick view of product", product._id)
+  }
 
   return (
-    <div >
+    <div>
       <div className={`${slideHeight} product l:px-0`}>
         <div className="group relative grid min-h-full grid-rows-[70%_30%] overflow-hidden text-darkGray">
           {/* Product image */}
           <div className="relative flex items-center justify-center">
-            <div className="light-shadow relative h-[95%] w-[95%] p-[10px]">
+            <Link
+              href={`shop/${product._id}`}
+              className="light-shadow relative h-[95%] w-[95%] p-[10px]"
+            >
               <Image
                 src={product.productImages[0]}
                 alt={product.name}
@@ -62,20 +59,25 @@ function ProtoProductItemSlider({
                 className="absolute inset-0 object-contain opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
                 quality={75}
               />
-            </div>
+            </Link>
 
             {/* Hover buttons */}
             {hoverButtons && (
               <HoverButtons
-                onAddToWishlist={handleAddToWishlist}
-                onAddToCart={handleAddToCart}
+                productId={product._id} // Pass the productId and other necessary props
+                price={product.price} // Pass the price
+              
+                onAddToCart={handleAddToCart} // Pass handleAddToCart to HoverButtons
                 onQuickView={handleQuickView}
               />
             )}
           </div>
 
           {/* Bottom section: Product description */}
-          <div className="flex flex-col justify-center gap-[10px] text-center">
+          <Link
+            href={`shop/${product._id}`}
+            className="flex flex-col justify-center gap-[10px] text-center "
+          >
             <Rating rating={product.rating} />
             <div className="relative h-[25px]">
               <p className="absolute inset-x-0 text-[1.1rem] font-[400] transition-all duration-500 ease-in-out group-hover:translate-y-[-9px] group-hover:opacity-0">
@@ -86,11 +88,11 @@ function ProtoProductItemSlider({
               </div>
             </div>
             <p className="text-[0.9rem] font-[500]">${product.price}</p>
-          </div>
+          </Link>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default ProtoProductItemSlider;
+export default ProtoProductItemSlider

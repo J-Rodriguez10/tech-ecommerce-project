@@ -1,20 +1,61 @@
 import Button from "@/components/button";
 import Heart from "@/components/svgs/heart";
+import { addToCart, addToWishlist, deleteFromWishlist} from "@/redux/slices/userSlice";
+import { AppDispatch, RootState } from "@/redux/store";
+import { Product } from "@/util/interfaces/product";
 
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 interface AddToCartSectionProps {
-  quantity: number;
-  setQuantity: React.Dispatch<React.SetStateAction<number>>;
-  handleAddToCart: () => void;
-  showCartNotification: boolean;
+  product: Product
 }
 
-const AddToCartSection: React.FC<AddToCartSectionProps> = ({
-  quantity,
-  setQuantity,
-  handleAddToCart,
-  showCartNotification,
-}) => {
+function AddToCartSection({ product }: AddToCartSectionProps) {
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
+
+  const [quantity, setQuantity] = useState(1); // Local state for quantity
+  const [showCartNotification, setShowCartNotification] = useState(false); // State to control the visibility of the notification
+
+  const isAuthenticated = useSelector((state: RootState ) => state.user.isAuthenticated);
+  const wishlist = useSelector((state: RootState) => state.user?.user?.wishlist); // Get wishlist from Redux
+
+  // Check if the product is already in the wishlist
+  const isInWishlist = wishlist?.some(item => item.productId === product._id);
+
+  // Handle adding product to cart
+  const handleAddToCart = () => {
+    if (!isAuthenticated) {
+      router.push("/account");
+      return;
+    }
+
+    dispatch(addToCart({
+      productId: product._id, quantity,
+      actionType: "UPDATE"
+    }));
+    setShowCartNotification(true);
+    setTimeout(() => setShowCartNotification(false), 3000);
+  };
+
+  // Handle adding/removing product to/from wishlist
+  const handleWishlistClick = () => {
+    if (!isAuthenticated) {
+      router.push("/account");
+      return;
+    }
+
+    if (isInWishlist) {
+      // Remove product from wishlist
+      dispatch(deleteFromWishlist(product._id));
+    } else {
+      // Add product to wishlist
+      dispatch(addToWishlist(product._id));
+    }
+  };
+
   return (
     <div className="flex flex-col gap-5">
       {/* Quantity selection */}
@@ -23,7 +64,7 @@ const AddToCartSection: React.FC<AddToCartSectionProps> = ({
         <div className="rounded-md border-[1px] border-darkGray">
           <button
             className="h-[43px] px-4 font-[500]"
-            onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+            onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
           >
             -
           </button>
@@ -36,7 +77,7 @@ const AddToCartSection: React.FC<AddToCartSectionProps> = ({
           />
           <button
             className="h-[43px] px-4 font-[500]"
-            onClick={() => setQuantity((prev) => prev + 1)}
+            onClick={() => setQuantity(prev => prev + 1)}
           >
             +
           </button>
@@ -45,25 +86,31 @@ const AddToCartSection: React.FC<AddToCartSectionProps> = ({
 
       {/* Add to cart and wishlist buttons */}
       <div className="flex gap-5">
+        {/* Add to Cart Button */}
         <Button
           onClick={handleAddToCart}
           className="max-w-[400px] !px-[4.2rem] !py-[0.8rem]"
         >
           Add To Cart
         </Button>
-        <button className="default-transition rounded-[50%] border-[1px] border-[#d8d8d8] bg-white p-[1rem] hover:bg-darkGray hover:text-white">
-          <Heart />
+
+        {/* Add/Remove From Wishlist Button */}
+        <button
+          className="default-transition rounded-[50%] border-[1px] border-[#d8d8d8] bg-white p-[1rem] hover:bg-darkGray hover:text-white"
+          onClick={handleWishlistClick}
+        >
+          <Heart isFilled={isInWishlist} />
         </button>
       </div>
 
       {/* Cart notification (success message) */}
       {showCartNotification && (
-        <div className="mt-4 p-4 bg-green-500 text-white rounded-md text-center">
+        <div className="mt-4 rounded-md bg-green-500 p-4 text-center text-white">
           Item added to cart!
         </div>
       )}
     </div>
   );
-};
+}
 
 export default AddToCartSection;

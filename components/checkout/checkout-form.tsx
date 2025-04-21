@@ -1,35 +1,155 @@
-import Image from "next/image"
-import Information from "../svgs/information"
-import CheckoutItemsDisplay from "./checkout-items-display"
+"use client"
+
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Information from "../svgs/information";
+import CheckoutItemsDisplay from "./checkout-items-display";
+import axios from "axios";
+import { RootState } from "@/redux/store";  // Import RootState for typing
+import { emptyCart } from "@/redux/slices/userSlice"; // Import the emptyCart action
+import { useRouter } from "next/navigation";
 
 function CheckoutForm() {
+  // Initialize form state with default values (empty strings or booleans where necessary)
+  const [formState, setFormState] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    newsletterSubscribed: false,
+    streetAddress: "",
+    apartment: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    country: "",
+    shippingMethod: "international", // Default value for shipping method
+    paymentMethod: "creditCard", // Default payment method
+    useShippingAsBilling: false,
+  });
+
+  const dispatch = useDispatch();  // Initialize dispatch
+  const router = useRouter();
+
+  // Get the token from the Redux store
+  const token = useSelector((state: RootState) => state.user.token);  // Access the token from the Redux state
+  const cart = useSelector((state: RootState) => state.user.user?.cart);
+
+  // Input styles (as per your design)
   const inputStyles =
-    "w-full my-2 rounded-md border px-4 py-3 placeholder-lightTextGray font-[500] text-[1rem] border-[#DEDEDE]"
-  const checkboxStyles = "mr-3 !rounded-[5px] !border-lightTextGray p-2"
-  const labelStyles = "text-[1rem] font-[400] text-black"
+    "w-full my-2 rounded-md border px-4 py-3 placeholder-lightTextGray font-[500] text-[1rem] border-[#DEDEDE]";
+  const checkboxStyles = "mr-3 !rounded-[5px] !border-lightTextGray p-2";
+  const labelStyles = "text-[1rem] font-[400] text-black";
+
+  // Handle form input change
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormState((prevState) => ({
+      ...prevState,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Form submitted with data:", formState);
+
+    if (!token) {
+      console.error("No token found, user is not authenticated.");
+      alert("You need to be logged in to place an order.");
+      return;
+    }
+
+    if (!cart || cart?.length === 0) {
+      alert("You don't have anything in the Cart! Try adding things to it.")
+      return;
+    }
+    
+    try {
+      // Prepare the shipping address, ensuring apartment can be undefined if not provided
+      const shippingAddress = {
+        streetAddress: formState.streetAddress,
+        apartment: formState.apartment || "",  // If apartment is not provided, set it to an empty string
+        city: formState.city,
+        state: formState.state,
+        postalCode: formState.postalCode,
+        country: formState.country,
+      };
+
+      // Send the form data to the backend to create a new order
+      const response = await axios.post(
+        "http://localhost:4000/api/orders",
+        {
+          email: formState.email,
+          firstName: formState.firstName,
+          lastName: formState.lastName,
+          shippingAddress,
+          paymentMethod: formState.paymentMethod,
+          shippingMethod: formState.shippingMethod,
+          useShippingAsBilling: formState.useShippingAsBilling,
+          newsletterSubscribed: formState.newsletterSubscribed,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Send the token in the headers for authentication
+          },
+        }
+      );
+
+      // Log the response from the server
+      console.log("Order created successfully:", response.data);
+
+      // You can handle success here, e.g., redirect the user to an order confirmation page
+      alert("Your order has been placed successfully!");
+
+      // Dispatch action to empty the cart in Redux state after successful order placement
+      dispatch(emptyCart()); // <-- Dispatch emptyCart action
+
+      router.push("/account");
+
+    } catch (error) {
+      // Handle error if something goes wrong
+      console.error("Error creating order:", error);
+      alert("There was an error placing your order. Please try again.");
+    }
+  };
 
   return (
-    <form className="w-[50%] space-y-6 rounded-lg bg-white pr-[2.5rem] text-darkGray m:min-w-full m:pr-0 l:w-[65%]">
+    <form onSubmit={handleSubmit} className="w-[50%] space-y-6 rounded-lg bg-white pr-[2.5rem] text-darkGray m:min-w-full m:pr-0 l:w-[65%]">
       {/* Notice */}
       <div className="mt-8 flex items-center gap-3 rounded-[5px] border-[1px] border-[#DEDEDE] bg-[#F6F6F6] px-3 py-5 text-black">
         <Information />
-
         <p>Your cart has been updated based on your shipping country.</p>
       </div>
 
       {/* Contact Info */}
       <fieldset>
         <legend className="block text-[1.6rem] font-[600]">Contact</legend>
-
         <input
-          type="text"
-          placeholder="Email or mobile phone number"
+          type="email"
+          placeholder="Email"
           className={`${inputStyles}`}
-          aria-label="Contact"
+          name="email"
+          value={formState.email}
+          onChange={handleInputChange}
+          required
         />
-
         <div className="mt-2 flex items-center">
-          <input type="checkbox" id="newsletter" className={checkboxStyles} />
+          <input
+            type="checkbox"
+            id="newsletter"
+            name="newsletterSubscribed"
+            className={checkboxStyles}
+            checked={formState.newsletterSubscribed}
+            onChange={handleInputChange}
+          />
           <label htmlFor="newsletter" className={labelStyles}>
             Email me with news and offers
           </label>
@@ -37,41 +157,101 @@ function CheckoutForm() {
       </fieldset>
 
       {/* Delivery Info */}
-      <fieldset className="">
+      <fieldset>
         <legend className="block text-[1.6rem] font-[600]">Delivery</legend>
-
-        {/* Choose a country */}
-        <select className={inputStyles}>
+        <select
+          className={inputStyles}
+          name="country"
+          value={formState.country}
+          onChange={handleSelectChange}
+        >
           <option>Choose a country</option>
           <option>United States</option>
         </select>
 
         {/* First + Last Name */}
         <div className="mt-2 grid grid-cols-2 gap-4">
-          <input type="text" placeholder="First Name" className={inputStyles} />
-          <input type="text" placeholder="Last Name" className={inputStyles} />
+          <input
+            type="text"
+            placeholder="First Name"
+            className={inputStyles}
+            name="firstName"
+            value={formState.firstName || ""}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            className={inputStyles}
+            name="lastName"
+            value={formState.lastName || ""}
+            onChange={handleInputChange}
+            required
+          />
         </div>
 
-        {/* Address */}
-        <input type="text" placeholder="Address" className={inputStyles} />
+        {/* Street Address */}
+        <input
+          type="text"
+          placeholder="Street Address"
+          className={inputStyles}
+          name="streetAddress"
+          value={formState.streetAddress}
+          onChange={handleInputChange}
+          required
+        />
 
         {/* Apartment */}
         <input
           type="text"
           placeholder="Apartment, suite, etc. (optional)"
           className={inputStyles}
+          name="apartment"
+          value={formState.apartment}
+          onChange={handleInputChange}
         />
 
         {/* City, State, Zipcode */}
         <div className="mt-2 grid grid-cols-3 gap-4">
-          <input type="text" placeholder="City" className={inputStyles} />
-          <input type="text" placeholder="State" className={inputStyles} />
-          <input type="text" placeholder="Zipcode" className={inputStyles} />
+          <input
+            type="text"
+            placeholder="City"
+            className={inputStyles}
+            name="city"
+            value={formState.city}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="text"
+            placeholder="State"
+            className={inputStyles}
+            name="state"
+            value={formState.state}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Zipcode"
+            className={inputStyles}
+            name="postalCode"
+            value={formState.postalCode}
+            onChange={handleInputChange}
+            required
+          />
         </div>
 
         {/* Save Info Checkbox */}
         <div className="mt-2 flex items-center">
-          <input type="checkbox" id="saveInfo" className={checkboxStyles} />
+          <input
+            type="checkbox"
+            id="saveInfo"
+            name="saveInfo"
+            className={checkboxStyles}
+            onChange={handleInputChange}
+          />
           <label htmlFor="saveInfo" className={labelStyles}>
             Save this information for next time
           </label>
@@ -79,83 +259,21 @@ function CheckoutForm() {
       </fieldset>
 
       {/* Shipping Method */}
-      <fieldset className="">
+      <fieldset>
         <legend className="text-[1.2rem] font-[600]">Shipping Method</legend>
-
-        {/* Shipping Options */}
         <div className="mt-4 flex items-center rounded-[5px] border-[1px] border-[#DEDEDE] bg-[#F6F6F6] px-3 py-5">
-          <input type="radio" id="shipping" name="shipping" className="mr-2" />
-          <label htmlFor="shipping" className="text-sm">
+          <input
+            type="radio"
+            id="internationalShipping"
+            name="shippingMethod"
+            value="international"
+            checked={formState.shippingMethod === "international"}
+            onChange={handleInputChange}
+            className="mr-2"
+          />
+          <label htmlFor="internationalShipping" className="text-sm">
             International Shipping
           </label>
-        </div>
-      </fieldset>
-
-      {/* Payment Info */}
-      <fieldset className="">
-        <legend className="block text-[1.6rem] font-[600]">
-          Payment Information
-        </legend>
-
-        <p className="text-lightTextGray">
-          All transactions are secure and encrypted.
-        </p>
-
-        {/* Card Inputs Container */}
-        <div className="mt-4">
-          {/* Header */}
-          <header className="flex w-full justify-between rounded-t-md border-[1.5px] border-black bg-[#F6F6F6] px-2 py-4">
-            <h3>Credit Card</h3>
-            <Image
-              src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/bogus.CIsYlO1z.svg"
-              alt="THIS IS FAKE"
-              width={38}
-              height={25}
-            />
-          </header>
-
-          {/* Card Inputs */}
-          <div className="rounded-[5px] border-[1px] border-[#DEDEDE] bg-[#F6F6F6] px-3 py-5 pt-0">
-            {/* Card Number */}
-            <input
-              placeholder="Credit Number"
-              className={inputStyles}
-              type="text"
-            />
-
-            {/* Expiration Date + Security Code */}
-            <div className="mt-2 grid grid-cols-2 gap-4">
-              <input
-                type="text"
-                placeholder="Expiration Date (MM/YY)"
-                className={inputStyles}
-              />
-              <input
-                type="text"
-                placeholder="Security Code"
-                className={inputStyles}
-              />
-            </div>
-
-            {/* Name on Card */}
-            <input
-              type="text"
-              placeholder="Name on Card"
-              className={inputStyles}
-            />
-
-            {/* Use This Address Checkbox */}
-            <div className="mt-2 flex items-center">
-              <input
-                type="checkbox"
-                id="billing"
-                className={`${checkboxStyles} white-check !bg-black !text-white`}
-              />
-              <label htmlFor="billing" className={labelStyles}>
-                Use shipping address as billing address
-              </label>
-            </div>
-          </div>
         </div>
       </fieldset>
 
@@ -172,7 +290,7 @@ function CheckoutForm() {
         All rights reserved
       </p>
     </form>
-  )
+  );
 }
 
-export default CheckoutForm
+export default CheckoutForm;
