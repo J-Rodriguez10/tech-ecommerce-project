@@ -8,6 +8,7 @@ import ProductTabsInfo from "./product-info-tabs";
 import GamingProductsPromoSection from "./gaming-products-promo-section";
 import RecommendationsSection from "../recommendations-section";
 import { Product } from "@/util/interfaces/product";
+import Loading from "@/app/loading";
 
 function ProductDetailsContainer() {
   const pathname = usePathname(); // Get the current pathname
@@ -31,7 +32,7 @@ function ProductDetailsContainer() {
     }
   }, [productId]);
 
-  if (!product) return <div>Loading...</div>; // Show loading until the product is fetched
+  if (!product) return <Loading/>; // Show loading until the product is fetched
 
   return (
     <>

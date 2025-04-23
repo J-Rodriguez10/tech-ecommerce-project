@@ -2,11 +2,10 @@
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import Slider from "react-slick"
 
 import SectionHeader from "./section-header"
-import ProductItemSlider from "./slider/slider-items/product-slider-item"
 import CustomSliderArrow from "./slider/custom-slider-arrow"
+import RecommendationsSlider from "./slider/recommendations-slider"
 
 function RecommendationsSection() {
   const sliderSettings = {
@@ -38,13 +37,7 @@ function RecommendationsSection() {
       <SectionHeader>You may also like</SectionHeader>
 
       <main>
-        <Slider {...sliderSettings}>
-          <ProductItemSlider />
-          <ProductItemSlider />
-          <ProductItemSlider />
-          <ProductItemSlider />
-          <ProductItemSlider />
-        </Slider>
+        <RecommendationsSlider slideHeight="h-[420px] s:min-h-[80vw]" settings={sliderSettings} />
       </main>
     </section>
   )

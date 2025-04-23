@@ -43,7 +43,8 @@ function SpecialOfferItemsSection() {
             <CompactProductItemSlider key={product._id} product={product} />
           ))
         ) : (
-          <p>Loading deals...</p>
+          // Invisible placeholder fallback to maintain slider layout while products load
+          <div className="invisible">Loading…</div>
         )}
       </div>
     </section>

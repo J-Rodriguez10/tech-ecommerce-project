@@ -43,7 +43,7 @@ function ClientsReviewsSection() {
         </SectionHeader>
 
         <Slider
-          className="w-[1150px] overflow-hidden rounded-[1rem] l:w-full"
+          className="w-[1150px] overflow-hidden rounded-[1rem] bg-white l:w-full"
           {...sliderSettings}
         >
           {DUMMY_REVIEWS_DATA.map((review, index) => (

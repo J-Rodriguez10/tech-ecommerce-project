@@ -19,27 +19,28 @@ import ProtoProductItemSlider from "../slider/slider-items/proto-product-slider-
 import { Product } from "@/util/interfaces/product"
 
 function TodaysDealsSection() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([])
 
   useEffect(() => {
     async function fetchDeals() {
       try {
-        const response = await fetch(`http://localhost:4000/api/products?tags=hotDeal&limit=10`);
+        const response = await fetch(
+          `http://localhost:4000/api/products?tags=hotDeal&limit=10`
+        )
 
         if (!response.ok) {
           throw new Error("Failed to fetch products")
         }
 
-        const data = await response.json();
-        setProducts(data.products || []);
-
+        const data = await response.json()
+        setProducts(data.products || [])
       } catch (error) {
-        console.error("Failed to fetch hot deals:", error);
+        console.error("Failed to fetch hot deals:", error)
       }
     }
 
-    fetchDeals();
-  }, []);
+    fetchDeals()
+  }, [])
 
   // Set the target countdown date to one year from today
   const targetDate = new Date()
@@ -47,13 +48,13 @@ function TodaysDealsSection() {
 
   // Slider settings for react-slick
   const sliderSettings = {
-    dots: false, 
-    infinite: true, 
-    speed: 500, 
+    dots: false,
+    infinite: true,
+    speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 1, 
+    slidesToScroll: 1,
     nextArrow: <CustomSliderArrow direction="right" />,
-    prevArrow: <CustomSliderArrow direction="left" />, 
+    prevArrow: <CustomSliderArrow direction="left" />,
     responsive: [
       {
         breakpoint: 990, // Adjust settings for screens ≤ 990px
@@ -74,7 +75,6 @@ function TodaysDealsSection() {
     <section className="w-full px-[3.5rem] py-[6rem] s:min-h-[950px] m:my-[6rem] m:h-[740px] m:p-0 l:px-0">
       {/* Container with box shadow */}
       <div className="light-shadow flex h-[495px] w-full items-start justify-between rounded-[1rem] px-[3.8rem] py-[3.3rem] m:min-h-full m:flex-col">
-        
         {/* Header section with title, separator, countdown, and button */}
         <header className="flex h-full max-w-[25%] flex-col items-start justify-start gap-[2.5rem] m:w-auto m:max-w-full m:gap-[1rem]">
           <div className="flex flex-col items-start gap-2">
@@ -95,12 +95,13 @@ function TodaysDealsSection() {
 
         {/* Product slider displaying deal items */}
         <Slider className="max-w-[73%] m:max-w-full" {...sliderSettings}>
-        {products.length > 0 ? (
-            products.map((product) => (
+          {products.length > 0 ? (
+            products.map(product => (
               <ProtoProductItemSlider key={product._id} product={product} />
             ))
           ) : (
-            <p>Loading deals...</p>
+            // Invisible placeholder fallback to maintain slider layout while products load
+            <div className="invisible">Loading…</div>
           )}
         </Slider>
       </div>

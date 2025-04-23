@@ -3,8 +3,7 @@
 import Link from "next/link"
 import Navlink from "./navlink"
 import CustomSliderArrow from "../../slider/custom-slider-arrow"
-import Slider from "react-slick"
-import ProductItemSlider from "../../slider/slider-items/product-slider-item"
+import RecommendationsSlider from "@/components/slider/recommendations-slider"
 
 
 export type Links = {
@@ -76,14 +75,7 @@ function ShopDropdownHoverMenu({ links }: DropdownProps) {
 
         {/* Slider section for showcasing items */}
         <div className="flex flex-1 items-center justify-center">
-          <Slider className="max-w-[250px]" {...settings}>
-            
-            {/* Render multiple ProductItemSlider components */}
-            <ProductItemSlider hoverButtons={false} slideHeight="h-[300px]" />
-            <ProductItemSlider hoverButtons={false} slideHeight="h-[300px]" />
-            <ProductItemSlider hoverButtons={false} slideHeight="h-[300px]" />
-            <ProductItemSlider hoverButtons={false} slideHeight="h-[300px]" />
-          </Slider>
+          <RecommendationsSlider  className="max-w-[250px]"  settings={settings} slideHeight="h-[300px]"/>
         </div>
       </div>
     </div>
