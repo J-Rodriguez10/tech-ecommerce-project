@@ -3,12 +3,14 @@
 import { User } from "@/util/interfaces/user"
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 import axios from "axios"
+import { REHYDRATE } from "redux-persist"
 
 export interface UserState {
   user: User | null
   token: string | null
   isAuthenticated: boolean
   isLoading: boolean
+  tokenExpiry?: number | null // timestamp when token expires (ms since epoch)
   error: string | null
 }
 
@@ -18,6 +20,7 @@ const initialState: UserState = {
   token: null,
   isAuthenticated: false,
   isLoading: false,
+  tokenExpiry: undefined,
   error: null
 }
 
@@ -209,8 +212,6 @@ export const addToWishlist = createAsyncThunk(
   }
 )
 
-
-
 // Thunk for removing a product from the wishlist
 export const deleteFromWishlist = createAsyncThunk(
   "user/deleteFromWishlist",
@@ -247,20 +248,31 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    logout: (state) => {
-      state.user = null;
-      state.token = null;
-      state.isAuthenticated = false;
-      state.error = null;
+    logout: state => {
+      state.user = null
+      state.token = null
+      state.isAuthenticated = false
+      state.error = null
     },
-    emptyCart: (state) => {
+    emptyCart: state => {
       if (state.user) {
-        state.user.cart = [];  // Clear the cart in the user object
+        state.user.cart = [] // Clear the cart in the user object
       }
-    },
+    }
   },
   extraReducers: builder => {
     builder
+      .addCase(REHYDRATE, (state, action: any) => {
+        const incoming: UserState | undefined = action.payload?.user
+        if (incoming?.tokenExpiry && incoming.tokenExpiry < Date.now()) {
+          // clear user slice
+          state.user = null
+          state.token = null
+          state.isAuthenticated = false
+          state.tokenExpiry = null
+          state.error = null
+        }
+      })
       // Handle pending state for deleting from the wishlist
       .addCase(deleteFromWishlist.pending, state => {
         state.isLoading = true
@@ -396,14 +408,24 @@ const userSlice = createSlice({
       // Handle fulfilled state when registration is successful
       .addCase(
         registerUser.fulfilled,
-        (state, action: PayloadAction<{ user: User; token: string }>) => {
+        (
+          state,
+          action: PayloadAction<{
+            user: User
+            token: string
+            expiresIn: number // <-- now included
+          }>
+        ) => {
           state.isLoading = false
-          state.user = action.payload.user // Store the full user object
-          state.token = action.payload.token // Store the token
+          state.user = action.payload.user // full user
+          state.token = action.payload.token // JWT
           state.isAuthenticated = true
+          // calculate absolute expiry timestamp:
+          state.tokenExpiry = Date.now() + action.payload.expiresIn
 
-          console.log("REGISTER - user:", action.payload.user) // Log the updated state
-          console.log("Updated state after registration:", state) // Log the updated state
+          console.log("REGISTER - user:", action.payload.user)
+          console.log("REGISTER- TOKEN EXPIREY", state.tokenExpiry)
+          console.log("Updated state after registration:", state)
         }
       )
       // Handle rejected state when registration fails
@@ -421,19 +443,25 @@ const userSlice = createSlice({
       // Handling in `extraReducers`
       .addCase(
         loginUser.fulfilled,
-        (state, action: PayloadAction<{ user: User; token: string }>) => {
+        (
+          state,
+          action: PayloadAction<{
+            user: User
+            token: string
+            expiresIn: number // now included
+          }>
+        ) => {
           state.isLoading = false
-
-          // Store the user object and token
           state.user = action.payload.user
           state.token = action.payload.token
           state.isAuthenticated = true
+          // calculate and store expiry timestamp
+          state.tokenExpiry = Date.now() + action.payload.expiresIn
 
           console.log("LOG IN authentication:", state.isAuthenticated)
-
           console.log("LOG IN token", state.token)
-          // Log the updated state after login
-          console.log("Updated state after login:", state) // <-- This log will show the updated state
+          console.log("LOG IN TOKEN EXPIREY", state.tokenExpiry)
+          console.log("Updated state after login:", state)
         }
       )
       // Handle rejected state when login fails
@@ -445,5 +473,5 @@ const userSlice = createSlice({
 })
 
 // Export actions and reducer
-export const { logout , emptyCart} = userSlice.actions
+export const { logout, emptyCart } = userSlice.actions
 export default userSlice.reducer
