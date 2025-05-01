@@ -1,13 +1,19 @@
-import { useState } from "react";
 import Link from "next/link";
-import Button from "../button";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "@/redux/slices/userSlice"; // Assuming you have registerUser thunk
+
+import Button from "../button";
+import { registerUser } from "@/redux/slices/userSlice"; 
 import { AppDispatch } from "@/redux/store";
 
 interface SignUpFormProps {
   handleFormChange: () => void; // Function triggered when the "Already have an account?" button is clicked, switching from LoginForm to SignUpForm
 }
+
+/**
+ * A registration form component that handles user sign-up, form validation,
+ * success/error feedback, and switching to the login form.
+ */
 
 function SignUpForm({ handleFormChange }: SignUpFormProps) {
   const inputStyles = "w-full p-[9px] rounded-[5px] placeholder-darkGray";
@@ -19,26 +25,31 @@ function SignUpForm({ handleFormChange }: SignUpFormProps) {
     email: "",
     password: "",
   });
-
+  
+  // To notify user of an unsuccessful registration
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null); // For success messages
-  const [isLoading, setIsLoading] = useState<boolean>(false); // To handle loading state
+  // To notify user of a successful registration
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  // To handle loading state in the UI
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const dispatch = useDispatch<AppDispatch>(); // Make sure dispatch is typed
+  const dispatch = useDispatch<AppDispatch>();
 
   // Handle form input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    // Dynamically update the correct field in the formData object
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value, // Dynamically update the correct field in the formData object
+      [name]: value, 
     }));
   };
 
   // Handle form submission (sign up)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true); // Start loading
+    setIsLoading(true); 
 
     try {
       // Dispatch registerUser thunk to register the user
@@ -59,7 +70,8 @@ function SignUpForm({ handleFormChange }: SignUpFormProps) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       setErrorMessage(`Registration failed. Please try again: ${error.message}`);
-      setSuccessMessage(null); // Clear any previous success messages
+       // Clear any previous success messages
+      setSuccessMessage(null);
       console.error(error);
     }
   };

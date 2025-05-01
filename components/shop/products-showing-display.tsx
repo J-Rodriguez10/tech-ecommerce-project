@@ -7,6 +7,11 @@ type ProductsShowingDisplayProps = {
   totalPages: number; // Pass totalPages instead of totalResults
 };
 
+/***
+ * Displays the current range of visible products based on pagination and Redux
+ * filter state.
+ */
+
 function ProductsShowingDisplay({ totalPages }: ProductsShowingDisplayProps) {
   // Access the current page and products per page from Redux state
   const { currentPage, productsDisplayed } = useSelector(
@@ -37,7 +42,6 @@ function ProductsShowingDisplay({ totalPages }: ProductsShowingDisplayProps) {
   return (
     <p className="m:hidden">
       {displayMessage}
-
     </p>
   );
 }

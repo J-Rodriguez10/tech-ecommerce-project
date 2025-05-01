@@ -1,5 +1,5 @@
-import { SHIPPING_FAQ } from "@/util/data/dummy-data/faq-data"
 import FaqAccordionMenu from "./faq-accordion-menu"
+import { SHIPPING_FAQ } from "@/util/data/dummy-data/faq-data"
 
 function ShippingInformationSection() {
   return (

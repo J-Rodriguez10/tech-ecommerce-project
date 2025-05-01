@@ -1,9 +1,3 @@
-// {
-//   post: "Post 1",
-//   picture:
-//     "https://quickstep007.myshopify.com/cdn/shop/files/c3_480x280.png?v=1701754130"
-// }
-
 import Instagram from "@/components/svgs/social-media-svgs/instagram"
 import Image from "next/image"
 
@@ -11,6 +5,11 @@ export interface IgPictureSliderItemProps {
   post: string
   pictureUrl: string
 }
+
+/**
+ *  Displays an Instagram-style image with a hover overlay and icon
+ *  for use in sliders.
+ */
 
 function IgPictureSliderItem({ post, pictureUrl }: IgPictureSliderItemProps) {
   return (

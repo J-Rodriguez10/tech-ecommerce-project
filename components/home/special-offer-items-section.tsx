@@ -6,6 +6,12 @@ import SectionHeader from "../section-header"
 import CompactProductItemSlider from "../slider/slider-items/compact-product-slider-item"
 import { Product } from "@/util/interfaces/product"
 
+
+/**
+ * Fetches and displays products tagged as "specialOffer" in a
+ * responsive grid layout with a section header.
+ */
+
 function SpecialOfferItemsSection() {
   const [products, setProducts] = useState<Product[]>([])
 

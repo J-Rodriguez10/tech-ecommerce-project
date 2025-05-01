@@ -1,6 +1,11 @@
 import Link from "next/link"
 import Button from "../button"
 
+/***
+ * Promotes exclusive gaming products with a feature list and embedded YouTube
+ * video, encouraging users to explore the shop.
+ */
+
 function GamingProductsPromoSection() {
   return (
     <section className="my-[6.5rem] flex items-center gap-[1.5rem] s:flex-col">

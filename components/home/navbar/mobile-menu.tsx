@@ -6,7 +6,6 @@
 import AccordionMenu from "../../accordion-menu"
 import SearchSvg from "../../svgs/navbar-svgs/search-svg"
 import XSvg from "../../svgs/x"
-
 import { ACCORDION_CATEGORY_LINKS } from "@/util/data/dropdown-links/category-menu-links"
 import { ACCORDION_NAVBAR_LINKS } from "@/util/data/dropdown-links/navbar-links"
 

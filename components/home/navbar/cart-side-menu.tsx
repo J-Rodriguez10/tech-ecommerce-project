@@ -1,18 +1,23 @@
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "@/redux/store"
+import { useRouter } from "next/navigation"
 
 import XSvg from "@/components/svgs/x"
-import { CartItem as CartItemInterface } from "@/util/interfaces/user"
 import CartItem from "./cart-item"
 import Button from "@/components/button"
 import { deleteFromCart } from "@/redux/slices/userSlice"
-import { useRouter } from "next/navigation"
+import { CartItem as CartItemInterface } from "@/util/interfaces/user"
 
 
 interface CartSideMenuProps {
   toggleCartMenuDisplay: () => void
 }
 
+
+/**
+ * A side menu displaying cart items, allowing item removal and navigation to checkout or cart pages,
+ * with authentication checks
+ */
 function CartSideMenu({ toggleCartMenuDisplay }: CartSideMenuProps) {
   const cart: CartItemInterface[] | undefined = useSelector(
     (state: RootState) => state.user.user?.cart

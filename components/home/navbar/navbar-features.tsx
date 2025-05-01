@@ -2,6 +2,7 @@
 
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
+
 import Navlink from "./navlink"
 import Star from "@/components/svgs/navbar-svgs/star"
 import UserSvg from "@/components/svgs/navbar-svgs/user-svg"
@@ -12,6 +13,16 @@ interface NavbarFeaturesListProps {
   handleMobileMenuDisplay: (menu: string) => void
   toggleCartMenuDisplay: () => void
 }
+
+/**
+ * Displays three icons in the Navbar component.
+ * Each icon is responsible for different features:
+ * 1) Star Icon - Takes user to the wishlist page
+ * 2) User Icon - Takes user to their account page
+ * 3) Bag Icon - Toggles the user's shopping cart in the form of an aside menu
+ * NOTE: If the user is not authenticated, the Start and User icon will refer them
+ * to the login page instead.
+ */
 
 export default function NavbarFeaturesList({
   handleMobileMenuDisplay,

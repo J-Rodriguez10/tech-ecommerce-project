@@ -10,6 +10,12 @@ import IgPictureSliderItem, {
   IgPictureSliderItemProps
 } from "../slider/slider-items/ig-picture-slider-item"
 
+
+/*
+ * A responsive Instagram-style image slider showcasing posts with
+ * custom navigation arrows.
+ */
+
 function FollowUsSection() {
   const sliderSettings = {
     dots: false,

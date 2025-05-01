@@ -1,7 +1,10 @@
 import { Filters } from "../interfaces/filters"
 import { Product } from "../interfaces/product"
 
-// Helper function to build query string based on filters from the redux filters state
+/***
+ * Converts a Filters object into a URL query string for API requests, handling all
+ * active filter fields.
+ */
 export function buildQueryString(filters: Filters) {
   const queryParams = new URLSearchParams()
 
@@ -89,8 +92,10 @@ export async function fetchFilteredProducts(
 }
 
 
-
-// Fetch a single product by ID
+/***
+ * Retrieves a product by its ID from the backend and updates local state via a
+ * provided setter.
+ */
 export async function fetchProductById(
   productId: string,
   setProduct: (product: Product) => void

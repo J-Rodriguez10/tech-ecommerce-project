@@ -1,21 +1,27 @@
 "use client"
 
 import { useSelector, useDispatch } from "react-redux"
-import { RootState } from "@/redux/store" // Import RootState to access the state
-import { logout } from "@/redux/slices/userSlice" // Assuming you have a logout action
+import { RootState } from "@/redux/store" 
+import { logout } from "@/redux/slices/userSlice" 
+import { useState } from "react"
 
 import LoginForm from "./login-form"
 import SignUpForm from "./sign-up-form"
 import Button from "../button"
-import { useState } from "react"
 import Link from "next/link"
 import OrderList from "./order-list"
+
+/**
+ * Handles user authentication display, showing login/signup forms for guests or
+ * user profile, logout, and order history for authenticated users.
+ */
 
 function AccountContent() {
   const dispatch = useDispatch()
 
-  // Accessing the user from the state with correct typing using UserState
-  const user = useSelector((state: RootState) => state.user.user) // Using `user` from `user` slice, typed correctly
+  // Extracting global user state from redux slice
+  const user = useSelector((state: RootState) => state.user.user) 
+  // Extracting isAuthenticated propety from user redux slice
   const isAuthenticated = useSelector(
     (state: RootState) => state.user.isAuthenticated
   )

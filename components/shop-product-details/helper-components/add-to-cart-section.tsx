@@ -1,26 +1,37 @@
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+
 import Button from "@/components/button";
 import Heart from "@/components/svgs/heart";
-import { addToCart, addToWishlist, deleteFromWishlist} from "@/redux/slices/userSlice";
-import { AppDispatch, RootState } from "@/redux/store";
 import { Product } from "@/util/interfaces/product";
+import { AppDispatch, RootState } from "@/redux/store";
+import { addToCart, addToWishlist, deleteFromWishlist} from "@/redux/slices/userSlice";
 
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 interface AddToCartSectionProps {
   product: Product
 }
 
+/***
+ * Allows users to select quantity, add a product to cart or wishlist, and shows a 
+ * success notification—redirecting unauthenticated users to login.
+ */
+
 function AddToCartSection({ product }: AddToCartSectionProps) {
+  // Importing dispatch and router tools:
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
-  const [quantity, setQuantity] = useState(1); // Local state for quantity
-  const [showCartNotification, setShowCartNotification] = useState(false); // State to control the visibility of the notification
+  // State variables to control input fields
+  const [quantity, setQuantity] = useState(1); 
+  const [showCartNotification, setShowCartNotification] = useState(false);
 
+  // Extracting if user is authenticated from user redux
   const isAuthenticated = useSelector((state: RootState ) => state.user.isAuthenticated);
-  const wishlist = useSelector((state: RootState) => state.user?.user?.wishlist); // Get wishlist from Redux
+
+  // Extracting wishlist from user redux
+  const wishlist = useSelector((state: RootState) => state.user?.user?.wishlist); 
 
   // Check if the product is already in the wishlist
   const isInWishlist = wishlist?.some(item => item.productId === product._id);

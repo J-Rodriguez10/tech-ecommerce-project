@@ -1,6 +1,11 @@
 import Image from "next/image"
 import React from "react"
 
+/**
+ * Displays a company story section with descriptive text and
+ * a featured image in a responsive layout.
+ */
+
 function OurStorySection() {
   return (
     <section className="my-[5rem]">

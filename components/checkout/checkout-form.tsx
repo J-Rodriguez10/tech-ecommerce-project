@@ -2,15 +2,22 @@
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+
 import Information from "../svgs/information";
 import CheckoutItemsDisplay from "./checkout-items-display";
 import axios from "axios";
-import { RootState } from "@/redux/store";  // Import RootState for typing
-import { emptyCart } from "@/redux/slices/userSlice"; // Import the emptyCart action
-import { useRouter } from "next/navigation";
+import { RootState } from "@/redux/store";  
+import { emptyCart } from "@/redux/slices/userSlice"; 
+
+
+/**
+ * A comprehensive checkout form that collects contact, shipping, and payment
+ * details, submits an order to the backend, and clears the cart on success.
+ */
 
 function CheckoutForm() {
-  // Initialize form state with default values (empty strings or booleans where necessary)
+  // Initialize form state with default values:
   const [formState, setFormState] = useState({
     firstName: "",
     lastName: "",
@@ -22,19 +29,20 @@ function CheckoutForm() {
     state: "",
     postalCode: "",
     country: "",
-    shippingMethod: "international", // Default value for shipping method
+    shippingMethod: "international", 
     paymentMethod: "creditCard", // Default payment method
     useShippingAsBilling: false,
   });
 
-  const dispatch = useDispatch();  // Initialize dispatch
+  const dispatch = useDispatch();
   const router = useRouter();
 
-  // Get the token from the Redux store
-  const token = useSelector((state: RootState) => state.user.token);  // Access the token from the Redux state
+  // Get the token from the Redux state
+  const token = useSelector((state: RootState) => state.user.token);
+  // Get the user's cart for the user Redux state
   const cart = useSelector((state: RootState) => state.user.user?.cart);
 
-  // Input styles (as per your design)
+  // Input styles
   const inputStyles =
     "w-full my-2 rounded-md border px-4 py-3 placeholder-lightTextGray font-[500] text-[1rem] border-[#DEDEDE]";
   const checkboxStyles = "mr-3 !rounded-[5px] !border-lightTextGray p-2";
@@ -49,6 +57,7 @@ function CheckoutForm() {
     }));
   };
 
+  // Handle form select change 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormState((prevState) => ({
@@ -57,23 +66,24 @@ function CheckoutForm() {
     }));
   };
 
+  // Handle submit form
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted with data:", formState);
 
+    // Warn user that they are not logged in
     if (!token) {
-      console.error("No token found, user is not authenticated.");
       alert("You need to be logged in to place an order.");
       return;
     }
-
+    // Warn user that they don't have anything in their cart
     if (!cart || cart?.length === 0) {
       alert("You don't have anything in the Cart! Try adding things to it.")
       return;
     }
     
     try {
-      // Prepare the shipping address, ensuring apartment can be undefined if not provided
+      // Preparing shipping address to send in POST request
       const shippingAddress = {
         streetAddress: formState.streetAddress,
         apartment: formState.apartment || "",  // If apartment is not provided, set it to an empty string
@@ -83,7 +93,8 @@ function CheckoutForm() {
         country: formState.country,
       };
 
-      // Send the form data to the backend to create a new order
+      // Send the form data to the backend
+      // POST a new order to the backend
       const response = await axios.post(
         "http://localhost:4000/api/orders",
         {
@@ -98,20 +109,19 @@ function CheckoutForm() {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Send the token in the headers for authentication
+            // Token authentication
+            Authorization: `Bearer ${token}`,
           },
         }
       );
 
-      // Log the response from the server
+      // Order was successfully created - tell the user
       console.log("Order created successfully:", response.data);
-
-      // You can handle success here, e.g., redirect the user to an order confirmation page
       alert("Your order has been placed successfully!");
 
-      // Dispatch action to empty the cart in Redux state after successful order placement
-      dispatch(emptyCart()); // <-- Dispatch emptyCart action
-
+      // Empty out the cart and send the user to their account page
+      // so they can see their updated orders
+      dispatch(emptyCart());
       router.push("/account");
 
     } catch (error) {

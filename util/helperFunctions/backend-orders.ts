@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-// API call to get orders
+/***
+ * Fetches authenticated user orders via a GET request, using a JWT token for
+ * authorization.
+ */
 export const getUserOrders = async (token: string) => {
   try {
     // Log the token and the request being made

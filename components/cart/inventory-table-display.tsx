@@ -1,51 +1,63 @@
 "use client"
 
+import Link from "next/link"
 import { useDispatch, useSelector } from "react-redux"
-import { AppDispatch, RootState } from "@/redux/store" // Import RootState for type checking
+
 import Button from "../button"
 import TableItem from "./table-item"
-import { addToCart, clearCart, deleteFromCart } from "@/redux/slices/userSlice" // Assuming deleteFromCart handles item removal
-import Link from "next/link"
+import { addToCart, clearCart, deleteFromCart } from "@/redux/slices/userSlice" 
+import { AppDispatch, RootState } from "@/redux/store" 
+
+/**
+ * Displays the shopping cart in a table format, allowing users to update
+ * quantities, remove items, clear the cart, or continue shopping.
+ */
 
 function InventoryTableDisplay() {
-  const dispatch = useDispatch<AppDispatch>();
-  const cart = useSelector((state: RootState) => state.user.user?.cart); // Get cart items from Redux state
 
-  // Handle quantity change (this could also be in redux action for cart update)
+  const dispatch = useDispatch<AppDispatch>();
+  // Extracting cart from redux user slice
+  const cart = useSelector((state: RootState) => state.user.user?.cart); 
+
+  // Handle quantity change
   const handleQuantityChange = (productId: string, quantity: number) => {
     console.log(
       "Before dispatch: Product ID:",
       productId,
       "Quantity:",
       quantity
-    ); // Log the incoming values
+    ); 
 
     if (quantity > 0) {
-      console.log("Dispatching addToCart with quantity:", quantity); // Log the dispatch call
+      // Log the dispatch call
+      console.log("Dispatching addToCart with quantity:", quantity); 
+      // Update cart item quantity
       dispatch(
         addToCart({
           productId: productId,
           quantity,
           actionType: "UPDATE"
         })
-      ); // Update cart item quantity
+      ); 
     }
   };
 
   // Handle item removal
   const handleRemoveItem = (productId: string) => {
-    dispatch(deleteFromCart(productId)); // Call the action to remove item from the cart
+    dispatch(deleteFromCart(productId)); 
   };
 
   // Handle clearing the cart
   const handleClearCart = () => {
-    dispatch(clearCart()); // Dispatch the action to clear the cart
+    dispatch(clearCart());
   };
 
   return (
     <section className="mb-[8rem] mt-[6rem] overflow-x-auto border-b-[1px] border-[#dfdfdf] pb-8">
+
       <table className="min-w-full border-collapse border border-gray-300">
         {/* Table Header */}
+
         <thead className="m:hidden">
           <tr>
             <th className="border py-4 font-[400] uppercase">Product</th>
@@ -58,10 +70,11 @@ function InventoryTableDisplay() {
 
         {/* Table Body */}
         <tbody>
+          
           {/* Check if the cart has items */}
           {cart?.map(item => (
             <TableItem
-              key={item.productId} // Unique key for each item
+              key={item.productId}
               productId={item.productId}
               productImage={item.productImage}
               productName={item.productName}

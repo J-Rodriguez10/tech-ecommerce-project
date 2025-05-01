@@ -7,6 +7,11 @@ import SectionHeader from "./section-header"
 import CustomSliderArrow from "./slider/custom-slider-arrow"
 import RecommendationsSlider from "./slider/recommendations-slider"
 
+/**
+ * Displays a responsive product recommendation slider with custom navigation
+ * arrows and dynamic settings.
+ */
+
 function RecommendationsSection() {
   const sliderSettings = {
     dots: false,

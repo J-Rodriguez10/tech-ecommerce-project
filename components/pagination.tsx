@@ -7,6 +7,11 @@ interface PaginationProps {
   className?: string
 }
 
+/**
+ * Renders pagination controls with next, previous, and numbered page buttons,
+ * supporting dynamic styling and page navigation.
+ */
+
 function Pagination({
   currentPage,
   totalPages,

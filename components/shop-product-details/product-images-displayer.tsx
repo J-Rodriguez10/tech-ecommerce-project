@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import type { default as SliderType } from "react-slick";
-import InnerImageZoom from "react-inner-image-zoom";
 import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
+import InnerImageZoom from "react-inner-image-zoom";
+import { useRef, useState } from "react";
+import type { default as SliderType } from "react-slick";
 
 import ProductImgSliderItem from "../slider/slider-items/product-img-slider-item";
 import CustomSliderArrow from "../slider/custom-slider-arrow";
@@ -16,6 +16,11 @@ import { Product } from "@/util/interfaces/product";
 interface ProductImagesDisplayerProps {
   product: Product; // Product type from your interface
 }
+
+/***
+ * Displays a zoomable main product image with a synchronized thumbnail slider, 
+ * allowing users to preview and switch between product images.
+ */
 
 function ProductImagesDisplayer({ product }: ProductImagesDisplayerProps) {
   // Set the initial selected image to the first image in the product's images
@@ -35,7 +40,7 @@ function ProductImagesDisplayer({ product }: ProductImagesDisplayerProps) {
       {
         breakpoint: 990, // Screen width <= 990px
         settings: {
-          slidesToShow: 3, // Show 4 slides
+          slidesToShow: 3, // Show 3 slides
         },
       },
       {

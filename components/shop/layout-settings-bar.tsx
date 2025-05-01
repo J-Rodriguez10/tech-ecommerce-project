@@ -2,14 +2,20 @@
 
 import { useDispatch, useSelector } from "react-redux"
 import { RootState, AppDispatch } from "@/redux/store"
-import { setFilters } from "@/redux/slices/filtersSlice"
+
 import Funnel from "../svgs/shop/funnel"
 import ProductsPerPageInput from "./products-per-page-input"
 import ProductsShowingDisplay from "./products-showing-display"
+import { setFilters } from "@/redux/slices/filtersSlice"
 
 interface LayoutSettingsBarProps {
   handleMobileMenuDisplay: () => void
 }
+
+/***
+ * Provides controls for sorting, pagination, and mobile filter toggle in the
+ * product listing layout using Redux state.
+ */
 
 function LayoutSettingsBar({
   handleMobileMenuDisplay
@@ -18,18 +24,15 @@ function LayoutSettingsBar({
 
   // Access the current sortBy from Redux state
   const currentSortBy = useSelector((state: RootState) => state.filters.sortBy)
-
-  // Get totalPages from Redux state (this is updated after fetching products)
+  // Get totalPages from Redux state - updated after fetching products
   const totalPages = useSelector((state: RootState) => state.filters.totalPages)
 
-  // Handle change in the dropdown for sorting
+  // Handle sortBy change
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newSortBy = event.target.value
 
-    // Dispatch the action to update the Redux state
+    // Update the sortBy filter option
     dispatch(setFilters({ sortBy: newSortBy }))
-
-    // Log the new sortBy value
     console.log("New sortBy value:", newSortBy)
   }
   return (
@@ -42,7 +45,7 @@ function LayoutSettingsBar({
         {/* Input for number of results per page */}
         <ProductsPerPageInput />
 
-        {/* Dropdown for sorting products */}
+        {/* Dropdown options for sorting products */}
         <p className="xs:hidden">
           Sort By:
           <select

@@ -6,6 +6,10 @@ interface CartItemProps extends CartItemInterface {
   onRemove: () => void; // Add onRemove prop to handle removal of the item
 }
 
+/**
+ * Displays a single cart item with product details and a remove button, used within the cart menu.
+ */
+
 function CartItem({
   productImage,
   productName,

@@ -1,7 +1,8 @@
-import { useState } from "react";
 import Link from "next/link";
-import Button from "../button";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+
+import Button from "../button";
 import { loginUser } from "@/redux/slices/userSlice";
 import { AppDispatch } from "@/redux/store";
 
@@ -9,10 +10,15 @@ interface LoginFormProps {
   handleFormChange: () => void; // Function triggered when the "Create Account" button is clicked, switching from the LoginForm to the SignUpForm.
 }
 
+/**
+ * A login form component that handles user authentication, input validation,
+ * error display, and switching to the signup form.
+ */
+
 function LoginForm({ handleFormChange }: LoginFormProps) {
   const inputStyles = "w-full p-[9px] rounded-[5px] placeholder-darkGray";
 
-  // Local state for form data (email, password)
+  // Local state for form data: (email, password)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -21,14 +27,16 @@ function LoginForm({ handleFormChange }: LoginFormProps) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   
-  const dispatch = useDispatch<AppDispatch>(); // Make sure dispatch is typed
+  const dispatch = useDispatch<AppDispatch>();
 
   // Handle form input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+     // Dynamically update the correct field in the formData object
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value, // Dynamically update the correct field in the formData object
+      [name]: value, 
     }));
   };
 
@@ -36,13 +44,13 @@ function LoginForm({ handleFormChange }: LoginFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    setIsLoading(true); // Start loading state
+    // Update UI to a loading state
+    setIsLoading(true); 
 
     try {
       // Dispatch loginUser thunk to log in the user
       await dispatch(loginUser(formData)).unwrap();
       setIsLoading(false); // End loading state
-      // Handle success, like redirecting to the homepage or showing a success message
       
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {

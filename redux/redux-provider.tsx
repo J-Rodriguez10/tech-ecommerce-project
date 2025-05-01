@@ -1,4 +1,3 @@
-// redux/redux-provider.tsx
 "use client";
 
 import { ReactNode } from "react";
@@ -11,6 +10,11 @@ import Loading from "@/app/loading";
 interface ReduxProviderProps {
   children: ReactNode;
 }
+
+/***
+ * Wraps the app with Redux and redux-persist providers, showing a loading state 
+ * during store rehydration.
+ */
 
 export default function ReduxProvider({ children }: ReduxProviderProps) {
   return (

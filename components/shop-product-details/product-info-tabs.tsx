@@ -13,7 +13,6 @@ import { Product } from "@/util/interfaces/product"
   The selected tab determines which component is rendered dynamically.  
 */
 
-
 function ProductTabsInfo({product}: {product: Product}) {
   const [selectedTab, setSelectedTab] = useState<
     "description" | "reviews" | "shipping"

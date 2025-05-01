@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+
 import SearchSvg from "@/components/svgs/navbar-svgs/search-svg";
 
 function Searchbar() {

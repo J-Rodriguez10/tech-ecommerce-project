@@ -39,6 +39,10 @@ function CustomerSupportBadge({
   )
 }
 
+/***
+ * A strip of customer support badges
+ */
+
 function CustomerSupportStrip() {
   return (
     // Background

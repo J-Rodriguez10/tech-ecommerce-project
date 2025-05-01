@@ -1,15 +1,14 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Slider from "react-slick"
+import { useEffect, useState } from "react"
 
 import CustomSliderArrow from "../slider/custom-slider-arrow"
-import ProductItemSlider from "../slider/slider-items/product-slider-item"
 import SectionHeader from "../section-header"
+import ProductItemSlider from "../slider/slider-items/product-slider-item"
 import { Product } from "@/util/interfaces/product"
-import ProtoProductItemSlider from "../slider/slider-items/proto-product-slider-item"
 
 function FeaturedCollectionSection() {
   const [products, setProducts] = useState<Product[]>([])
@@ -85,7 +84,7 @@ function FeaturedCollectionSection() {
         {/* Render individual product sliders */}
         {products.length > 0 ? (
           products.map(product => (
-            <ProtoProductItemSlider
+            <ProductItemSlider
               slideHeight={sliderHeightStyles}
               key={product._id}
               product={product}

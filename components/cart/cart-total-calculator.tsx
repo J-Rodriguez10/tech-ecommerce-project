@@ -12,8 +12,10 @@ function CartTotalCalculator() {
     "inset-shadow w-full p-[9px] rounded-[5px] placeholder-darkGray border-[0.5px] border-[#DEDEDE]"
   return (
     <section className="!my-[8rem] flex gap-8 m:flex-col m:gap-[4rem]">
+      
       {/* Shipping Estimates Input */}
       <form className="flex flex-1 flex-col gap-[3rem]">
+
         {/* Pick Delivery Data + Time */}
         <fieldset className="flex flex-col gap-4">
           <legend className="mb-4 text-[1.4rem]">
@@ -65,10 +67,12 @@ function CartTotalCalculator() {
         <Button className="min-w-[250px]">Calculate Shipping</Button>
       </form>
 
-      {/* Cart Totals (DUMMY) */}
+      {/* Cart Totals */}
       <div className="flex-1">
         <div className="flex flex-col items-center gap-8 rounded-[5px] bg-[#F7F7F7] p-9 m:p-[3rem]">
+
           <h3 className="text-[1.5rem]">Cart Totals</h3>
+
           {/* Subtotal + Total */}
           <table className="w-full table-fixed border">
             <tbody>
@@ -82,6 +86,8 @@ function CartTotalCalculator() {
               </tr>
             </tbody>
           </table>
+
+          {/* Proceed to checkout */}
           <Link href="/checkout">
             <Button variant="red" className="min-w-[270px]">
               Proceed To Checkout

@@ -1,17 +1,17 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { useState } from "react"
 
 import ShopDropdownHoverMenu from "./shop-dropdown-hover-menu"
-import { SHOP_LINKS } from "@/util/data/dropdown-links/navbar-links"
 import MobileMenu from "./mobile-menu"
 import Searchbar from "./searchbar"
 import NavbarFeaturesList from "./navbar-features"
 import CategoryMenuContainer from "./category-menu-container"
 import NavbarCenterLinks from "./navbar-center-links"
 import CartSideMenu from "./cart-side-menu"
-import Link from "next/link"
+import { SHOP_LINKS } from "@/util/data/dropdown-links/navbar-links"
 
 interface NavbarProps {
   hasCategoryMenu?: boolean // Controls whether the category menu is displayed (not all pages have the category menu part of the Navbar)
@@ -100,7 +100,7 @@ function Navbar({ hasCategoryMenu = true }: NavbarProps) {
         )}
       </div>
 
-      {/* Mobile navigation menus */}
+      {/* Mobile Menus (appear when screen sizes is small) */}
       <MobileMenu
         handleMenuClose={handleMobileMenuClose}
         variant="category-menu"

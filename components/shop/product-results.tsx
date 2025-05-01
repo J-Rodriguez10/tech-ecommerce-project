@@ -2,29 +2,49 @@
 
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { RootState, AppDispatch } from "@/redux/store"
-import { resetFilters, setFilters } from "@/redux/slices/filtersSlice"
-import Pagination from "../pagination"
-import ProtoProductItemSlider from "../slider/slider-items/proto-product-slider-item"
-import { Product } from "@/util/interfaces/product"
-import { fetchFilteredProducts } from "@/util/helperFunctions/backend-fetching"
 import { useRouter, useSearchParams } from "next/navigation"
 
+import Pagination from "../pagination"
+import ProductItemSlider from "../slider/slider-items/product-slider-item"
+import { RootState, AppDispatch } from "@/redux/store"
+import { resetFilters, setFilters } from "@/redux/slices/filtersSlice"
+import { Product } from "@/util/interfaces/product"
+import { fetchFilteredProducts } from "@/util/helperFunctions/backend-fetching"
+
+/***
+ * Displays paginated product results based on Redux-managed filters and
+ * optional search query, syncing with URL parameters and backend data.
+ */
+
 function ProductResults() {
+  /**
+   * VARIABLES THAT IMPACT PRODUCTS STATE VARIABLE:
+   */
+  // Using the Dispatch tool
   const dispatch = useDispatch<AppDispatch>()
+
+  // Extracting filters state from redux
   const filters = useSelector((state: RootState) => state.filters)
-  const router = useRouter();
+
+  // Using the Router and Params tools:
+  const router = useRouter()
   const searchParams = useSearchParams()
-  // read the "search" param from the URL
+
+  // Extracting a potential search query from the URL to filter products to
   const searchQuery = searchParams.get("search") ?? ""
 
-  // Redux-backed filters
+  // Extracting currentPage and totalPage from filters redux state
+  // - (for pagination purposes)
   const { currentPage, totalPages } = useSelector(
     (state: RootState) => state.filters
   )
 
+  // Products state variable
   const [products, setProducts] = useState<Product[]>([])
 
+  /**
+   * USE EFFECTS:
+   */
   // 1) sync URL → Redux filters whenever the URL changes
   useEffect(() => {
     // only dispatch if it's actually different
@@ -40,6 +60,10 @@ function ProductResults() {
     })
   }, [searchQuery, currentPage, totalPages, filters])
 
+
+  /**
+   * PAGINATION FUNCTIONS
+   */
   const handleNextPage = () =>
     currentPage < totalPages &&
     dispatch(setFilters({ currentPage: currentPage + 1 }))
@@ -85,7 +109,7 @@ function ProductResults() {
             {/* …SVG… */}
           </div>
         ) : (
-          products.map(p => <ProtoProductItemSlider key={p._id} product={p} />)
+          products.map(p => <ProductItemSlider key={p._id} product={p} />)
         )}
       </main>
 

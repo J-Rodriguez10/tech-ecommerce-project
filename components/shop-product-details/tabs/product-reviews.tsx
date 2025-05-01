@@ -8,7 +8,9 @@ import { Product } from "@/util/interfaces/product"
 /*  
   Displays customer reviews for a product, including review metrics,  
   individual customer reviews, and an optional review submission form.  
-  Users can toggle the review form by clicking the "Write a review" button.  
+  Users can toggle the review form by clicking the "Write a review" button.\
+  
+  NOTE: Write a review was never implemented. Only a dummy review is displayed.
 */
 
 function ProductReviews({product}:{product: Product}) {

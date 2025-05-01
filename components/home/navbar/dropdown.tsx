@@ -14,7 +14,7 @@ export type Links = {
 
 type DropdownProps = {
   links: Links[] // Array of categories with associated links
-  className?: string // Additional CSS classes
+  className?: string 
 }
 
 function Dropdown({ links, className = "" }: DropdownProps) {

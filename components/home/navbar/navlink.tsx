@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, ReactNode } from "react";
 import Link from "next/link";
+import { useState, ReactNode } from "react";
+
 import Caret from "../../svgs/navbar-svgs/caret-svg";
 
 type NavlinkProps = {

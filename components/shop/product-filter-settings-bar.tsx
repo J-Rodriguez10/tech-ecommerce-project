@@ -1,13 +1,18 @@
 import * as Accordion from "@radix-ui/react-accordion"
-import AccordionToggleHeader from "./custom-accordion-menu-components/accordion-header"
+import Image from "next/image"
 
+import AccordionToggleHeader from "./custom-accordion-menu-components/accordion-header"
 import TagsDropdown from "./custom-accordion-menu-components/dropdowns/tags-dropdown"
 import AvailabilityDropdown from "./custom-accordion-menu-components/dropdowns/availability-dropdown"
 import PriceDropdown from "./custom-accordion-menu-components/dropdowns/price-dropdown"
 import BrandDropdown from "./custom-accordion-menu-components/dropdowns/brand-dropdown"
 import ColorDropdown from "./custom-accordion-menu-components/dropdowns/color-dropdown"
 import SizeDropdown from "./custom-accordion-menu-components/dropdowns/size-dropdown"
-import Image from "next/image"
+
+/***
+ * Displays a multi-section accordion filter menu for products (e.g. tags,
+ * price, brand), optionally including a promotional image.
+ */
 
 function ProductFilterSettingsBar({
   className = "",

@@ -1,14 +1,7 @@
-
 import Link from "next/link"
 import Rating from "../rating"
 import Button from "../button"
-
-
-
-import { Product } from "@/util/interfaces/product"
-
 import SocialMediaStrip from "./helper-components/social-media-strip"
-
 import PaymentsStrip from "./helper-components/payments-strip"
 import TermsAndConditions from "./helper-components/terms-and-conditions"
 import AddToCartSection from "./helper-components/add-to-cart-section"
@@ -16,6 +9,14 @@ import AdditionalInformationButtons from "./helper-components/additional-informa
 import StorageOptions from "./helper-components/storage-options"
 import ColorSelection from "./helper-components/color-selection"
 import Availability from "./helper-components/availability"
+import { Product } from "@/util/interfaces/product"
+
+
+/***
+ * Renders detailed product info including name, availability, rating, pricing,
+ * variants (storage/color), and purchase actions, along with supporting components
+ * like terms, payments, and social media.
+ */
 
 function ProductDetails({ product }: { product: Product }) {
   

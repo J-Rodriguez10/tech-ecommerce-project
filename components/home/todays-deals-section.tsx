@@ -15,8 +15,9 @@ import Slider from "react-slick"
 import CustomSliderArrow from "../slider/custom-slider-arrow"
 import Button from "../button"
 import Countdown from "./countdown"
-import ProtoProductItemSlider from "../slider/slider-items/proto-product-slider-item"
+
 import { Product } from "@/util/interfaces/product"
+import ProductItemSlider from "../slider/slider-items/product-slider-item"
 
 function TodaysDealsSection() {
   const [products, setProducts] = useState<Product[]>([])
@@ -97,7 +98,7 @@ function TodaysDealsSection() {
         <Slider className="max-w-[73%] m:max-w-full" {...sliderSettings}>
           {products.length > 0 ? (
             products.map(product => (
-              <ProtoProductItemSlider key={product._id} product={product} />
+              <ProductItemSlider key={product._id} product={product} />
             ))
           ) : (
             // Invisible placeholder fallback to maintain slider layout while products load

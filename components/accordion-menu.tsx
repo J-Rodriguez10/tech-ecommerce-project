@@ -11,7 +11,12 @@ export interface AccordionItemProps {
   links?: AccordionItemProps[] // Optional sub-links for nested accordion items
 }
 
-// AccordionMenu component
+
+/**
+ * A recursive accordion component for displaying a list of links with optional nested sub-links,
+ * built with Radix UI and Next.js.
+ */
+
 function AccordionMenu({ items }: { items: AccordionItemProps[] }) {
   // State to track which accordion item is currently open
   const [openItem, setOpenItem] = useState<string | null>(null)

@@ -1,11 +1,17 @@
 "use client"
 
+import Link from "next/link"
 import { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
+
 import { RootState } from "@/redux/store"
 import { getUserOrders } from "@/util/helperFunctions/backend-orders"
 import { Order } from "@/util/interfaces/order"
-import Link from "next/link"
+
+/**
+ * Fetches and displays a user's past orders with statuses, totals, and item
+ * details, handling loading and error states.
+ */
 
 function OrderList() {
   const [orders, setOrders] = useState<Order[]>([])

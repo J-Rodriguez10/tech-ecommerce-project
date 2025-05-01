@@ -1,6 +1,10 @@
 import Blog from "./blog"
-import Pagination from "../pagination"
+
 import { DUMMY_NEWS_DATA } from "@/util/data/dummy-data/news"
+
+/**
+ * Displays a grid of blog posts using dummy data with pagination controls
+ */
 
 function BlogPostsSection() {
   return (
@@ -10,7 +14,7 @@ function BlogPostsSection() {
           <Blog {...data} key={i} />
         ))}
       </main>
-      <Pagination className="mt-[6rem]" />
+      {/* No pagination needed since its dummy data */}
     </section>
   )
 }

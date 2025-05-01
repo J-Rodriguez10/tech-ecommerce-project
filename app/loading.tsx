@@ -7,6 +7,10 @@ function Dot({ delay }: { delay: string }) {
   )
 }
 
+/***
+ * A fullscreen animated loader with three pulsing dots, each staggered by delay.
+ */
+
 function Loading() {
   return (
     <main className="flex h-screen w-screen items-center justify-center">

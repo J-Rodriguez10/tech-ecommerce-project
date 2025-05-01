@@ -1,7 +1,7 @@
-// redux/store.ts
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+
 import filtersReducer from "./slices/filtersSlice";
 import userReducer from "./slices/userSlice";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
 import {
   persistStore,
@@ -20,7 +20,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["user"], // <-- only persist the `user` slice
+  whitelist: ["user"], // Persist only the `user` slice
 };
 
 // 2. Combine your reducers

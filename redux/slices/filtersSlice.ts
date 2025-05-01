@@ -1,7 +1,5 @@
-// redux/slices/filtersSlice.ts
-
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Filters } from "@/util/interfaces/filters"; // Assuming Filters interface exists
+import { Filters } from "@/util/interfaces/filters"; 
 
 const initialState: Filters = {
   name: "",
@@ -16,6 +14,12 @@ const initialState: Filters = {
   currentPage: 1, // Add currentPage
   totalPages: 1,  // Add totalPages
 };
+
+/***
+ * Manages global product filter state (e.g. search, tags, price, pagination) with
+ * setFilters and resetFilters reducers.
+ */
+
 
 const filtersSlice = createSlice({
   name: "filters",

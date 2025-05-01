@@ -1,26 +1,41 @@
 "use client";
 
+import {  usePathname } from "next/navigation"; 
 import { useEffect, useState } from "react";
-import {  usePathname } from "next/navigation"; // Use next/navigation
-import { fetchProductById } from "@/util/helperFunctions/backend-fetching";
+
 import ProductDetailsSection from "./product-details-section";
 import ProductTabsInfo from "./product-info-tabs";
 import GamingProductsPromoSection from "./gaming-products-promo-section";
 import RecommendationsSection from "../recommendations-section";
-import { Product } from "@/util/interfaces/product";
 import Loading from "@/app/loading";
+import { Product } from "@/util/interfaces/product";
+import { fetchProductById } from "@/util/helperFunctions/backend-fetching";
+
+/***
+ * Dynamically fetches and renders product details based on the URL, including
+ * product info, tabs, promotions, and recommendations.
+ */
 
 function ProductDetailsContainer() {
-  const pathname = usePathname(); // Get the current pathname
-  const [productId, setProductId] = useState<string | null>(null); // State for productId
+  const pathname = usePathname(); 
+  const [productId, setProductId] = useState<string | null>(null); 
   const [product, setProduct] = useState<Product | null>(null);
 
-  // Extract the productId from the pathname (e.g., "/shop/67c5fbd43757936fe72328fc")
+  /**
+   * Process:
+   * 1) Extract the productId from the URL - usePathname
+   * 2) Use the productID to find and set the product state variable
+   * 3) Pass the product into corresponding components to render
+   */
+
+  // Extract the productId from the pathname
+  // (e.g., "/shop/67c5fbd43757936fe72328fc")
   useEffect(() => {
     if (pathname) {
-      const segments = pathname.split('/'); // Split the pathname by '/'
-      const id = segments[segments.length - 1]; // Get the last segment, which is the product ID
-      setProductId(id); // Set the productId state
+      const segments = pathname.split('/');
+      const id = segments[segments.length - 1];
+      // Set the productId state
+      setProductId(id);
     }
   }, [pathname]);
 
@@ -32,7 +47,8 @@ function ProductDetailsContainer() {
     }
   }, [productId]);
 
-  if (!product) return <Loading/>; // Show loading until the product is fetched
+  // Show loading until the product is fetched
+  if (!product) return <Loading/>; 
 
   return (
     <>

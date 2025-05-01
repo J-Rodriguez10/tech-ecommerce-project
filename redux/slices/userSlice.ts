@@ -14,6 +14,11 @@ export interface UserState {
   error: string | null
 }
 
+/***
+ * Manages user authentication, cart, and wishlist state using Redux Toolkit, with
+ * async thunks for login, registration, and API interactions.
+ */
+
 // Initial state
 const initialState: UserState = {
   user: null,
@@ -52,7 +57,6 @@ export const registerUser = createAsyncThunk(
 )
 
 // Thunk for logging in a user
-// Thunk for logging in a user
 export const loginUser = createAsyncThunk(
   "user/login",
   async (
@@ -64,7 +68,9 @@ export const loginUser = createAsyncThunk(
         "http://localhost:4000/api/users/login",
         userData
       )
-      return response.data // This will now include the full user object
+
+      // This will now include the full user object
+      return response.data 
     } catch (error: any) {
       return rejectWithValue(error.response?.data || "Login failed")
     }
@@ -105,9 +111,13 @@ export const addToCart = createAsyncThunk(
           }
         }
       )
-      console.log("Backend response after adding to cart:", response.data.cart) // Log the updated cart
-      return response.data.cart // Return the updated cart from the backend
+       // Console log the updated cart
+      console.log("Backend response after adding to cart:", response.data.cart)
+       // Return the updated cart from the backend
+      return response.data.cart
+
     } catch (error: any) {
+      
       return rejectWithValue(
         error.response?.data || "Failed to add product to cart"
       )
@@ -127,7 +137,8 @@ export const deleteFromCart = createAsyncThunk(
 
     // Debug: Log the current state and the productId that we are going to delete
     console.log("State before deletion:", state)
-    console.log("Deleting productId:", productId) // Ensure it's a string
+    // Ensure it's a string
+    console.log("Deleting productId:", productId) 
 
     try {
       // Make the API call to remove the product from the cart
@@ -413,7 +424,7 @@ const userSlice = createSlice({
           action: PayloadAction<{
             user: User
             token: string
-            expiresIn: number // <-- now included
+            expiresIn: number
           }>
         ) => {
           state.isLoading = false

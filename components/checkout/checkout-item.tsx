@@ -1,8 +1,12 @@
-import { CartItem } from "@/util/interfaces/user";
 import Image from "next/image";
-import React from "react";
 
-// Refactor CheckoutItem to receive a cart item as a prop
+import { CartItem } from "@/util/interfaces/user";
+
+/**
+ * Renders a single cart item with image, quantity badge, name, and total price
+ * for use in the checkout summary.
+ */
+
 function CheckoutItem({ item }: { item: CartItem }) {
   return (
     <li className="items-between flex justify-between my-5">
