@@ -1,12 +1,13 @@
 import React from "react"
 import Image from "next/image"
-import { Product } from "@/util/interfaces/product"
+import Link from "next/link"
+import { useDispatch } from "react-redux"
+
 import Rating from "@/components/rating"
 import HoverButtons from "./product-slider-item-helper/hover-buttons"
-import { useDispatch } from "react-redux"
-import { addToCart} from "@/redux/slices/userSlice"
+import { addToCart } from "@/redux/slices/userSlice"
+import { Product } from "@/util/interfaces/product"
 import { AppDispatch } from "@/redux/store"
-import Link from "next/link"
 
 interface ProductItemSliderProps {
   slideHeight?: string
@@ -14,7 +15,12 @@ interface ProductItemSliderProps {
   product: Product
 }
 
-// This is the updated one
+/***
+ * Renders a single product card for use in sliders or product grids, featuring dual image hover transition,
+ * Redux-powered add-to-cart functionality, and animated product name reveal. Optimized for performance with
+ * lazy-loaded images, priority loading for above-the-fold content, and optional interactive hover buttons.
+ */
+
 function ProductItemSlider({
   slideHeight = "h-[370px] l:h-[320px] s:min-h-[600px]",
   hoverButtons = true,
@@ -22,13 +28,14 @@ function ProductItemSlider({
 }: ProductItemSliderProps) {
   const dispatch = useDispatch<AppDispatch>() // Correctly type dispatch
 
-
   const handleAddToCart = (productId: string) => {
     // Implement add to cart logic
-    dispatch(addToCart({
-      productId,
-      actionType: "INCREMENT"
-    }))
+    dispatch(
+      addToCart({
+        productId,
+        actionType: "INCREMENT"
+      })
+    )
   }
 
   const handleQuickView = () => {
@@ -46,20 +53,27 @@ function ProductItemSlider({
               href={`shop/${product._id}`}
               className="light-shadow relative h-[95%] w-[95%] p-[10px]"
             >
+              {/* Primary image */}
               <Image
                 src={product.productImages[0]}
                 alt={product.name}
                 fill
                 className="absolute inset-0 object-contain transition-opacity duration-500 ease-in-out group-hover:opacity-0"
-                quality={75}
+                quality={30}
+                loading="eager" // ensures first image loads quickly for UX
+                priority // prioritize this image above the fold
               />
-              <Image
-                src={product.productImages[1]}
-                alt={product.name}
-                fill
-                className="absolute inset-0 object-contain opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
-                quality={75}
-              />
+
+              {/* Secondary image, rendered only on hover */}
+              <div className="absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100">
+                <Image
+                  src={product.productImages[1]}
+                  alt={product.name}
+                  fill
+                  className="object-contain"
+                  quality={30}
+                />
+              </div>
             </Link>
 
             {/* Hover buttons */}
@@ -67,7 +81,6 @@ function ProductItemSlider({
               <HoverButtons
                 productId={product._id} // Pass the productId and other necessary props
                 price={product.price} // Pass the price
-              
                 onAddToCart={handleAddToCart} // Pass handleAddToCart to HoverButtons
                 onQuickView={handleQuickView}
               />
@@ -77,7 +90,7 @@ function ProductItemSlider({
           {/* Bottom section: Product description */}
           <Link
             href={`shop/${product._id}`}
-            className="flex flex-col justify-center gap-[10px] text-center "
+            className="flex flex-col justify-center gap-[10px] text-center"
           >
             <Rating rating={product.rating} />
             <div className="relative h-[25px]">

@@ -105,8 +105,8 @@ function ProductResults() {
       <main className="shop grid grid-cols-3 gap-5 xs:!grid-cols-1 m:grid-cols-2">
         {products.length === 0 ? (
           <div className="col-span-full flex flex-col items-center justify-center gap-4 text-center text-darkGray">
-            <p>No products found for &quot;{searchQuery}&quot;</p>
-            {/* …SVG… */}
+            <p>No products found for these search filters :(</p>
+
           </div>
         ) : (
           products.map(p => <ProductItemSlider key={p._id} product={p} />)
