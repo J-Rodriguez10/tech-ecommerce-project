@@ -45,7 +45,7 @@ function ProductResults() {
   /**
    * USE EFFECTS:
    */
-  // 1) sync URL → Redux filters whenever the URL changes
+  // 1) sync URL - Redux filters whenever the URL changes
   useEffect(() => {
     // only dispatch if it's actually different
     dispatch(setFilters({ name: searchQuery, currentPage: 1 }))

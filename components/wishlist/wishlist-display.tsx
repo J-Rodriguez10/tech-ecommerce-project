@@ -28,7 +28,7 @@ function WishlistDisplay() {
 
       // Fetch product details from the backend using the product IDs
       axios
-        .post("http://localhost:4000/api/products/fetch", { productIds })
+        .post(`${process.env.NEXT_PUBLIC_BACK_END_URL}/api/products/fetch`, { productIds })
         .then(response => {
           // Set the fetched products in local state
           setWishlistProducts(response.data.products) 

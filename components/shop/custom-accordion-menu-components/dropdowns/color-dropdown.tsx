@@ -8,14 +8,24 @@ function ColorDropdown() {
   const dispatch = useDispatch<AppDispatch>();
   const selectedColors = useSelector((state: RootState) => state.filters.color);
 
-  console.log("Current selected colors:", selectedColors); // Log changes
+  console.log("Current selected colors:", selectedColors); // Debug
 
-  const colors = ["Black", "Brown", "Cyan", "Gold", "Gray", "Magenta", "Pink", "Purple", "Yellow"];
+  const colorOptions = [
+    { label: "Black", value: "black" },
+    { label: "Brown", value: "brown" },
+    { label: "Cyan", value: "cyan" },
+    { label: "Gold", value: "gold" },
+    { label: "Gray", value: "gray" },
+    { label: "Magenta", value: "magenta" },
+    { label: "Pink", value: "pink" },
+    { label: "Purple", value: "purple" },
+    { label: "Yellow", value: "yellow" }
+  ];
 
-  const toggleColor = (color: string) => {
-    const newColors = selectedColors.includes(color)
-      ? selectedColors.filter((c) => c !== color) // Remove if already selected
-      : [...selectedColors, color]; // Add if not selected
+  const toggleColor = (value: string) => {
+    const newColors = selectedColors.includes(value)
+      ? selectedColors.filter((c) => c !== value)
+      : [...selectedColors, value];
 
     dispatch(setFilters({ color: newColors }));
   };
@@ -23,18 +33,17 @@ function ColorDropdown() {
   return (
     <div className="">
       <ul className="max-h-[255px] overflow-y-scroll">
-        {colors.map((color) => (
-          <li key={color} className="my-4 flex items-center gap-2">
+        {colorOptions.map(({ label, value }) => (
+          <li key={value} className="my-4 flex items-center gap-2">
             <input
               type="checkbox"
-              id={color}
-              checked={selectedColors.includes(color)}
-              onChange={() => toggleColor(color)}
+              id={value}
+              checked={selectedColors.includes(value)}
+              onChange={() => toggleColor(value)}
               className="!checked:bg-red-600 h-4 w-4 rounded border-gray-300 text-blue-600 checked:border-blue-600 focus:ring-blue-500"
             />
-
-            <label htmlFor={color} className="cursor-pointer text-darkGray">
-              {color}
+            <label htmlFor={value} className="cursor-pointer text-darkGray">
+              {label}
             </label>
           </li>
         ))}

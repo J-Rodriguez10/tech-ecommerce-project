@@ -6,7 +6,6 @@ import SectionHeader from "../section-header"
 import CompactProductItemSlider from "../slider/slider-items/compact-product-slider-item"
 import { Product } from "@/util/interfaces/product"
 
-
 /**
  * Fetches and displays products tagged as "specialOffer" in a
  * responsive grid layout with a section header.
@@ -19,7 +18,7 @@ function SpecialOfferItemsSection() {
     async function fetchDeals() {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/products?tags=specialOffer&limit=10`
+          `${process.env.NEXT_PUBLIC_BACK_END_URL}/api/products?tags=specialOffer&limit=10`
         )
 
         if (!response.ok) {

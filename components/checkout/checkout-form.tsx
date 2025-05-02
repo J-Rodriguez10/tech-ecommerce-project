@@ -96,7 +96,7 @@ function CheckoutForm() {
       // Send the form data to the backend
       // POST a new order to the backend
       const response = await axios.post(
-        "http://localhost:4000/api/orders",
+        `${process.env.NEXT_PUBLIC_BACK_END_URL}/api/orders`,
         {
           email: formState.email,
           firstName: formState.firstName,

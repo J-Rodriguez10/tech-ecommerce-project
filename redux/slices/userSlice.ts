@@ -43,7 +43,7 @@ export const registerUser = createAsyncThunk(
   ) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/users/register",
+        `${process.env.NEXT_PUBLIC_BACK_END_URL}/api/users/register`,
         userData
       )
       // Log the response from the backend
@@ -65,12 +65,12 @@ export const loginUser = createAsyncThunk(
   ) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/users/login",
+        `${process.env.NEXT_PUBLIC_BACK_END_URL}/api/users/login`,
         userData
       )
 
       // This will now include the full user object
-      return response.data 
+      return response.data
     } catch (error: any) {
       return rejectWithValue(error.response?.data || "Login failed")
     }
@@ -103,7 +103,7 @@ export const addToCart = createAsyncThunk(
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/users/cart",
+        `${process.env.NEXT_PUBLIC_BACK_END_URL}/api/users/cart`,
         { productId, quantity, actionType }, // Send actionType along with productId and quantity
         {
           headers: {
@@ -111,13 +111,11 @@ export const addToCart = createAsyncThunk(
           }
         }
       )
-       // Console log the updated cart
+      // Console log the updated cart
       console.log("Backend response after adding to cart:", response.data.cart)
-       // Return the updated cart from the backend
+      // Return the updated cart from the backend
       return response.data.cart
-
     } catch (error: any) {
-      
       return rejectWithValue(
         error.response?.data || "Failed to add product to cart"
       )
@@ -138,12 +136,12 @@ export const deleteFromCart = createAsyncThunk(
     // Debug: Log the current state and the productId that we are going to delete
     console.log("State before deletion:", state)
     // Ensure it's a string
-    console.log("Deleting productId:", productId) 
+    console.log("Deleting productId:", productId)
 
     try {
       // Make the API call to remove the product from the cart
       const response = await axios.delete(
-        `http://localhost:4000/api/users/cart/${productId}`, // ProductId will be used as string in the URL
+        `${process.env.NEXT_PUBLIC_BACK_END_URL}/api/users/cart/${productId}`, // ProductId will be used as string in the URL
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -174,7 +172,7 @@ export const clearCart = createAsyncThunk(
 
     try {
       const response = await axios.delete(
-        "http://localhost:4000/api/users/cart", // Endpoint to clear the cart
+        `${process.env.NEXT_PUBLIC_BACK_END_URL}/api/users/cart`, // Endpoint to clear the cart
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -201,7 +199,7 @@ export const addToWishlist = createAsyncThunk(
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/users/wishlist", // POST request to your wishlist API
+        `${process.env.NEXT_PUBLIC_BACK_END_URL}/api/users/wishlist`, // POST request to your wishlist API
         { productId }, // Sending productId to the server
         {
           headers: {
@@ -234,7 +232,7 @@ export const deleteFromWishlist = createAsyncThunk(
 
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/users/wishlist/${productId}`, // DELETE request to your wishlist API
+        `${process.env.NEXT_PUBLIC_BACK_END_URL}/api/users/wishlist/${productId}`, // DELETE request to your wishlist API
         {
           headers: {
             Authorization: `Bearer ${token}` // Adding authorization header with the token

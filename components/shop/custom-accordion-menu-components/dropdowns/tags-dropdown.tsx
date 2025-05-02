@@ -1,36 +1,41 @@
 "use client"
 
-import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "@/redux/store";
-import { setFilters } from "@/redux/slices/filtersSlice";
+import { useSelector, useDispatch } from "react-redux"
 
+import { setFilters } from "@/redux/slices/filtersSlice"
+import { RootState, AppDispatch } from "@/redux/store"
 
 function TagsDropdown() {
-  const dispatch = useDispatch<AppDispatch>();
-  const selectedTags = useSelector((state: RootState) => state.filters.tags);
-  
-  console.log("Current selected tags:", selectedTags); // Log state changes
+  const dispatch = useDispatch<AppDispatch>()
+  const selectedTags = useSelector((state: RootState) => state.filters.tags)
 
-  const tagsOption = ["Hot Deal", "Featured", "Special Offer"];
+  console.log("Current selected tags:", selectedTags) // Log state changes
 
-  function toggleTag(tag: string) {
-    const newTags = selectedTags.includes(tag)
-      ? selectedTags.filter((t) => t !== tag) // Remove tag if already selected
-      : [...selectedTags, tag]; // Add tag if not selected
+  const tagsOption = [
+    { label: "Hot Deal", value: "hotDeal" },
+    { label: "Featured", value: "featured" },
+    { label: "Special Offer", value: "specialOffer" }
+  ]
 
-    dispatch(setFilters({ tags: newTags }));
-  };
+  function toggleTag(tagValue: string) {
+    const newTags = selectedTags.includes(tagValue)
+      ? selectedTags.filter(t => t !== tagValue)
+      : [...selectedTags, tagValue]
 
-  
+    dispatch(setFilters({ tags: newTags }))
+  }
+
   return (
     <div className="flex flex-col">
-      {tagsOption.map((tag) => (
+      {tagsOption.map(({ label, value }) => (
         <button
-          className={`my-[0.5rem] text-left ${selectedTags.includes(tag) ? " text-darkOrange" : "text-darkGray"}`}
-          key={tag}
-          onClick={() => toggleTag(tag)}
+          className={`my-[0.5rem] text-left ${
+            selectedTags.includes(value) ? "text-darkOrange" : "text-darkGray"
+          }`}
+          key={value}
+          onClick={() => toggleTag(value)}
         >
-          {tag}
+          {label}
         </button>
       ))}
     </div>

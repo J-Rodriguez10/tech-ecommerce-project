@@ -10,7 +10,7 @@ export const getUserOrders = async (token: string) => {
     console.log('Fetching orders with token:', token);
 
     // Make the GET request to fetch orders
-    const response = await axios.get('http://localhost:4000/api/orders', {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACK_END_URL}/api/orders`, {
       headers: {
         Authorization: `Bearer ${token}`,  // Include the JWT token for authentication
       },

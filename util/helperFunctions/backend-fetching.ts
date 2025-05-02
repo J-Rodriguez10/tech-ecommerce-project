@@ -14,7 +14,7 @@ export function buildQueryString(filters: Filters) {
   if (filters.tags.length) {
     queryParams.append(
       "tags",
-      filters.tags.map(tag => tag.toLowerCase()).join(",")
+      filters.tags.join(",")
     )
   }
   if (filters.inStock !== undefined)
@@ -74,7 +74,7 @@ export async function fetchFilteredProducts(
 
     // Make the API request
     const response = await fetch(
-      `http://localhost:4000/api/products${queryString}`
+    `${process.env.NEXT_PUBLIC_BACK_END_URL}/api/products${queryString}`
     )
 
     // Check for a successful response
@@ -102,7 +102,7 @@ export async function fetchProductById(
 ) {
   try {
     // Make the API request to fetch the product by its ID
-    const response = await fetch(`http://localhost:4000/api/products/${productId}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACK_END_URL}/api/products/${productId}`);
 
     // Check for a successful response
     if (!response.ok) throw new Error("Failed to fetch product");

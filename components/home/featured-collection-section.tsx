@@ -17,7 +17,7 @@ function FeaturedCollectionSection() {
     async function fetchDeals() {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/products?tags=featured&limit=10`
+          `${process.env.NEXT_PUBLIC_BACK_END_URL}/api/products?tags=featured&limit=10`
         )
 
         if (!response.ok) {
