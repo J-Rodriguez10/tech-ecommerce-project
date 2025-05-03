@@ -54,7 +54,7 @@ function ProductDetailsContainer() {
     <>
       {/* Pass product details as a prop to child components */}
       <ProductDetailsSection product={product} />
-      <ProductTabsInfo product={product} />
+      <ProductTabsInfo />
       <GamingProductsPromoSection />
       <RecommendationsSection />
     </>
