@@ -1,6 +1,10 @@
 import Rating from "@/components/rating"
 import UserSvg from "@/components/svgs/navbar-svgs/user-svg"
 
+/***
+ * Dummy Product Review
+ */
+
 function ProductReview() {
   return (
     <div className="flex flex-col gap-2 text-darkGray">

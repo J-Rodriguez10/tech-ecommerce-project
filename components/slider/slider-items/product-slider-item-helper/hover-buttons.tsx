@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+
 import Heart from "@/components/svgs/heart";
 import Compare from "@/components/svgs/compare";
-import MagnifyingGlass from "@/components/svgs/magnifying-glass";
 import Navlink from "@/components/home/navbar/navlink";
-import { useDispatch, useSelector } from "react-redux";
+import MagnifyingGlass from "@/components/svgs/magnifying-glass";
 import { AppDispatch, RootState } from "@/redux/store";
-import { addToWishlist, deleteFromWishlist } from "@/redux/slices/userSlice"; // Import actions for wishlist
+import { addToWishlist, deleteFromWishlist } from "@/redux/slices/userSlice"; 
+
+/**
+ * Displays a vertical stack of interactive hover buttons for wishlist, add-to-cart, and quick view actions on
+ * a product card. It dynamically updates labels based on user authentication and Redux wishlist state, and redirects
+ * unauthenticated users to the login page. Integrates tightly with Redux actions for cart and wishlist management.
+ */
 
 interface ButtonLabelProps {
   label: string;
@@ -39,7 +46,8 @@ function HoverButtons({
 
   const [wishlistLabel, setWishlistLabel] = useState("Add to wishlist");
   const [cartLabel, setCartLabel] = useState("Add to Cart");
-  const [quickViewLabel, setQuickViewLabel] = useState("Quick View");
+  // const [quickViewLabel, setQuickViewLabel] = useState("Quick View");
+  const quickViewLabel = "Quick View";
 
   const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
   const wishlist = useSelector((state: RootState) => state.user.user?.wishlist); // Get the wishlist from Redux
@@ -52,17 +60,21 @@ function HoverButtons({
 
   const handleAddToCartClick = () => {
     if (!isAuthenticated) {
-      router.push("/account"); // Redirect to login if not authenticated
+      // Redirect to login if not authenticated
+      router.push("/account");
     } else {
-      onAddToCart(productId, 1, price); // Assuming quantity is 1
-      setCartLabel("Added to Cart!"); // Change label to "Added to Cart!"
-      setTimeout(() => setCartLabel("Add to Cart"), 3000); // Revert back after 3 seconds
+      onAddToCart(productId, 1, price); 
+      // Change label to "Added to Cart!"
+      setCartLabel("Added to Cart!"); 
+      // Revert back after 3 seconds
+      setTimeout(() => setCartLabel("Add to Cart"), 3000);
     }
   };
 
   const handleAddToWishlistClick = () => {
     if (!isAuthenticated) {
-      router.push("/account"); // Redirect to login if not authenticated
+       // Redirect to login if not authenticated
+      router.push("/account");
     } else {
       if (isFilled) {
         // If the product is in the wishlist, remove it
@@ -78,14 +90,15 @@ function HoverButtons({
 
   const handleQuickViewClick = () => {
     if (!isAuthenticated) {
-      router.push("/account"); // Redirect to login if not authenticated
+      router.push("/account"); 
     } else {
-      onQuickView(); // Proceed to quick view if authenticated
+      onQuickView(); 
     }
   };
 
   return (
     <ul className="absolute right-4 top-[15%] flex transform flex-col gap-[0.5rem] opacity-0 duration-500 ease-in-out group-hover:-translate-y-[10%] group-hover:opacity-100">
+      
       <Navlink
         className={hoverButtonsStyle}
         hoverContent={<ButtonLabel label={wishlistLabel} />}
@@ -93,8 +106,10 @@ function HoverButtons({
         hoverContentInteractable={false}
         onClick={handleAddToWishlistClick}
       >
-        <Heart isFilled={isFilled} /> {/* Heart dynamically filled based on wishlist state */}
+         {/* Heart dynamically filled based on wishlist state */}
+        <Heart isFilled={isFilled} />
       </Navlink>
+
       <Navlink
         className={hoverButtonsStyle}
         hoverContent={<ButtonLabel label={cartLabel} />}
