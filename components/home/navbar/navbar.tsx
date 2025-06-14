@@ -1,8 +1,9 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
 import { useState } from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faGithub } from "@fortawesome/free-brands-svg-icons"
 
 import ShopDropdownHoverMenu from "./shop-dropdown-hover-menu"
 import MobileMenu from "./mobile-menu"
@@ -50,14 +51,24 @@ function Navbar({ hasCategoryMenu = true }: NavbarProps) {
       <div className="cont text-lightTextGray">
         <div className="flex h-[112px] items-center justify-between">
           {/* Logo */}
-          <Link href="/">
+          <a
+            href="https://github.com/J-Rodriguez10/tech-ecommerce-project"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-2 text-gray-700 hover:text-green-400 transition-colors duration-200"
+            title="View project on GitHub"
+          >
             <Image
               width={150}
               height={18.5}
               src="https://quickstep007.myshopify.com/cdn/shop/files/logo_74cea665-41e6-4e29-a95a-56ceb67bb81e_150x@2x.png?v=1702468281"
               alt="Phoone"
             />
-          </Link>
+            <FontAwesomeIcon
+              icon={faGithub}
+              className="text-xl transition-colors duration-200"
+            />
+          </a>
 
           {/* Search bar for finding products */}
           <Searchbar />
