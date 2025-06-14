@@ -8,7 +8,7 @@
 
 This project was built as a portfolio piece by Jesus Rodriguez to simulate a professional shopping experience with full CRUD functionality and scalable architecture.
 
-👉 Check out the [Live Demo](https://tech-ecommerce-project-bczrazioc-j-rodriguez10s-projects.vercel.app/)
+👉 Check out the [Live Demo](https://tech-ecommerce-project-r3dxyygxm-j-rodriguez10s-projects.vercel.app/)
 
 ---
 
